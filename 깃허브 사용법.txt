@@ -1,0 +1,8 @@
+git 깃허브 에서 가져오기
+git pull origin master
+
+깃허브에 올리기
+git status - 깃과 내 폴더사이의 상태보기
+git add . -변경된 파일들 모두 찾기
+git commit -m "내용" -업로드할때 주석달기
+git push origin +master -폴더 내용 올리기
