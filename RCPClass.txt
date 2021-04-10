@@ -1,0 +1,56 @@
+
+public class RCPClass {
+
+	public static int transRCP(String userStr) {// 입력받은 String을 int로 변경하는 처리
+		int userNum = switch (userStr) {
+		case "가위" -> 0;
+		case "바위" -> 1;
+		case "보" -> 2;
+		default -> -1;
+		};
+		return userNum;
+	}
+
+	public static String transRCP(int comNum) {// 입력받은 랜덤 int를 String으로 변경
+		String comStr = switch (comNum) {
+		case 0 -> "가위";
+		case 1 -> "바위";
+		case 2 -> "보";
+		default -> "?";
+		};
+		return comStr;
+
+	}
+
+	public static int RCP(String userStr, int comNum) {// 1대1가위바위보 실행
+		int userNum = transRCP(userStr);
+		int result = 0;
+		if (userNum == comNum) {
+			// 비겼을때
+			result = 0;
+		} else if (userNum - comNum == -2 || userNum - comNum == 1) {
+			// user가 승리했을때
+			result = 1;
+		} else {
+			// user가 패배했을때
+			result = 2;
+		}
+		return result;
+	}
+
+	public static int RCP(int comNum, int comNum2) {
+		int result = 0;
+		if (comNum == comNum2) {
+			// 비겼을때
+			result = 0;
+		} else if (comNum - comNum2 == -2 || comNum - comNum2 == 1) {
+			// user가 승리했을때
+			result = 1;
+		} else {
+			// user가 패배했을때
+			result = 2;
+		}
+		return result;
+	}
+
+}
