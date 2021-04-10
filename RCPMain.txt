@@ -19,8 +19,9 @@ public class RCPMain {
 		Random rand = new Random();
 		RCPClass rcp = new RCPClass();
 		// user와 com과 com2의 가위바위보 실행
-		while(true) {
-			
+		boolean gameEnd = true;
+		while (gameEnd) {
+
 			System.out.println("가위 바위 보를 입력하세요.");
 			String userStr = in.nextLine();
 			int comNum = rand.nextInt(3);// 0~2까지의 랜덤 정수
@@ -28,31 +29,99 @@ public class RCPMain {
 			String comStr = rcp.transRCP(comNum);
 			String comStr2 = rcp.transRCP(comNum2);
 			int userNum = rcp.transRCP(userStr);
-			
-			if(((userNum==comNum)&&(userNum==comNum2))||(userNum!=comNum&&userNum!=comNum2)) {
+
+			if ((userNum == comNum && userNum == comNum2)
+					|| (userNum != comNum && userNum != comNum2 && comNum != comNum2)) {
 				System.out.println("비겼습니다! 재대결!");
 				continue;
 			}
-			
-			if(rcp.RCP(userNum, comNum)==1) {
-				
+
+			if (rcp.RCP(userNum, comNum) == 1) {
+				if (rcp.RCP(userNum, comNum2) == 1) {
+					System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : user 승리!");
+					gameEnd = false;
+				} else if (rcp.RCP(userNum, comNum2) == 0) {
+					System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : com2와 재경기!");
+
+					boolean regame = true;// 재경기 처리
+					while (regame) {
+						System.out.println("가위 바위 보를 입력하세요.");
+						userStr = in.nextLine();
+						comNum2 = rand.nextInt(3);// 0~2까지의 랜덤 정수
+						userNum = rcp.transRCP(userStr);
+						comStr2 = rcp.transRCP(comNum2);
+						if (rcp.RCP(userNum, comNum2) == 1) {
+							System.out.println("com2 : " + comStr2 + "\n 결과 : user 승리!");
+							regame = false;
+							gameEnd = false;
+						} else if (rcp.RCP(userNum, comNum2) == 0) {
+							System.out.println("com2 : " + comStr2 + "\n 결과 : 비김 재경기!");
+						} else {
+							System.out.println("com2 : " + comStr2 + "\n 결과 : user 패배 하셨습니다!");
+							regame = false;
+						}
+
+					}
+				}
+			} else if (rcp.RCP(userNum, comNum) == 2) {
+				if (rcp.RCP(userNum, comNum2) == 2) {
+					System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : user 패배! com1과 com2 재경기!");
+
+					boolean regame = true;// 재경기 처리
+					while (regame) {
+
+						comNum = rand.nextInt(3);// 0~2까지의 랜덤 정수
+						comStr = rcp.transRCP(comNum);
+						comNum2 = rand.nextInt(3);// 0~2까지의 랜덤 정수
+						comStr2 = rcp.transRCP(comNum2);
+
+						if (rcp.RCP(comNum, comNum2) == 1) {
+							System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : com1 승리!");
+							regame = false;
+						} else if (rcp.RCP(comNum, comNum2) == 0) {
+							System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : 비김 재경기!");
+						} else {
+							System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : com2 승리!");
+							regame = false;
+						}
+
+					}
+
+				} else if (rcp.RCP(userNum, comNum2) == 0) {
+					System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : com1 승리!");
+					continue;
+				}
+			} else if (rcp.RCP(userNum, comNum) == 0) {
+				if (rcp.RCP(userNum, comNum2) == 1) {
+					System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : com1와 재경기!");
+
+					boolean regame = true;// 재경기 처리
+					while (regame) {
+						System.out.println("가위 바위 보를 입력하세요.");
+						userStr = in.nextLine();
+						comNum2 = rand.nextInt(3);// 0~2까지의 랜덤 정수
+						userNum = rcp.transRCP(userStr);
+						comStr = rcp.transRCP(comNum);
+						if (rcp.RCP(userNum, comNum) == 1) {
+							System.out.println("com1 : " + comStr + "\n 결과 : user 승리!");
+							regame = false;
+							gameEnd = false;
+						} else if (rcp.RCP(userNum, comNum2) == 0) {
+							System.out.println("com1 : " + comStr + "\n 결과 : 비김 재경기!");
+						} else {
+							System.out.println("com1 : " + comStr + "\n 결과 : user 패배 하셨습니다!");
+							regame = false;
+						}
+
+					}
+				} else if (rcp.RCP(userNum, comNum2) == 2) {
+					System.out.println("com1 : " + comStr + " com2 : " + comStr2 + "\n 결과 : com2 승리!");
+
+				}
+
 			}
-		
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}
+
 	}
 
 }

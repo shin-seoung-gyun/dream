@@ -38,7 +38,7 @@ public class RCPClass {
 		return result;
 	}
 
-	public static int RCP(int comNum, int comNum2) {
+	public static int RCP(int comNum, int comNum2) {//컴퓨터 끼리 재경기 했을경우 사용할 RCP 처리
 		int result = 0;
 		if (comNum == comNum2) {
 			// 비겼을때
