@@ -1,0 +1,34 @@
+
+public class Test28 {
+
+	double base = 5.0;
+	double height = 3.5;
+
+	public double getArea(double base, double height) {
+		double result = 0;
+		result = (base * height) / 2;
+		return result;
+	}
+
+	public double getHypotenuse(double base, double height) {
+		double result = 0;
+		result = Math.sqrt(base * base + height * height);
+		return result;
+	}
+
+	public double getPerimeter(double base, double height) {
+		double result = 0;
+		result = base + height + getHypotenuse(base, height);
+		return result;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Test28 ob = new Test28();
+		System.out.printf("삼각형의 넓이 : %.2f", ob.getArea(ob.base, ob.height));
+		System.out.printf("\n빗변길이 : %.2f", ob.getHypotenuse(ob.base, ob.height));
+		System.out.printf("\n둘레길이 : %.2f", ob.getPerimeter(ob.base, ob.height));
+
+	}
+
+}

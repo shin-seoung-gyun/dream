@@ -1,0 +1,35 @@
+
+public class Quiz29 {
+	final double PI = 3.141593;
+	
+	public double area(int a) {
+		double result = 0;
+		result = a*a*PI;
+		return result;
+	}
+	
+	public double area(int a,int b) {
+		double result = 0;
+		result = a*b;
+		return result;
+	}
+	
+	public double area(int a,int b,int c) {
+		double result = 0;
+		result = (double)(a+b)*c/2;
+		return result;
+	}
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Quiz29 ob = new Quiz29();
+		
+		System.out.println("원의넓이 : "+ob.area(3));
+		System.out.println("사각형의넓이 : "+ob.area(4,5));
+		System.out.println("사다리꼴의넓이 : "+ob.area(3,4,7));
+		
+	}
+
+}
