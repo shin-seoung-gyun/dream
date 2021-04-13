@@ -1,0 +1,190 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+public class RCPExam {
+	private int userNum;// 게임에 참가하는 유저수
+	private List<Integer> gameUser = new ArrayList<>();
+	private int[] winCnt;
+	private int[] userVal;
+
+	RCPExam(int userNum) {
+		this.userNum = userNum;
+		for (int i = 0; i < userNum; i++) {
+			gameUser.add(i);
+		}
+		winCnt = new int[userNum];// 초기화때문에 생성자함수에 들어가는것
+		userVal = new int[userNum];// 초기화때문에 생성자함수에 들어가는것
+	}
+	
+	
+	void doGame() {
+		boolean isGame = true;
+		int cnt = 1;
+		while(isGame) {
+			
+			System.out.printf("\n%d번째 가위 바위 보 게임을 시작합니다.\n",cnt++);
+			
+			setUserVal();
+			
+			getWinCnt();
+			
+			isGame = resultGame();
+		}
+	}
+	
+	private boolean resultGame() {
+		boolean draw = (allTrue()==true||allZero()==true)? true:false;
+		
+		if(draw) {
+			System.out.println("\n비겼습니다 재경기 합니다.");
+			return true;
+		} else {
+			System.out.print("\n게임 결과 : ");
+			for(int i =0 ; i<gameUser.size();i++) {
+				int idx = gameUser.get(i);
+				if(winCnt[idx]>0) {
+					System.out.printf("\nuser%d 님이 승리하셨습니다.",idx);
+				}else if(winCnt[idx]==0) {
+					System.out.printf("\nuser%d 님이 패배하셨습니다.",idx);
+				}
+			}
+			var iter = gameUser.iterator();
+			while(iter.hasNext()) {
+				int idx = iter.next();
+				if(winCnt[idx]==0) {
+					iter.remove();
+				}
+			}
+			if(gameUser.size()==1) {
+				System.out.printf("\n최종 승자는 user%d 입니다!",gameUser.get(0));
+				return false;
+			}else {
+				return true;
+			}
+		}
+		
+		
+	}
+	
+	private boolean allTrue() {//모든 winCnt가 1이상
+		boolean result= true;
+		for(int i =0; i<gameUser.size();i++) {
+			int idx = gameUser.get(i);
+			if(winCnt[idx]>0) {
+				result = true;
+			}else {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	private boolean allZero() {//모든 winCnt가 0
+		boolean result= true;
+		for(int i =0; i<gameUser.size();i++) {
+			int idx = gameUser.get(i);
+			if(winCnt[idx]==0) {
+				result = true;
+			}else {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	
+	
+	
+
+	private void getWinCnt() {
+		for(int i = 0; i < gameUser.size(); i++) {//winCnt 초기화 매판마다 새로 작성해야함.
+			winCnt[i]=0;
+		}
+		for (int i = 0; i < gameUser.size(); i++) {
+			for(int j = i+1; j<gameUser.size();j++) {
+				int userIdx1 = gameUser.get(i);
+				int userIdx2 = gameUser.get(j);
+				if(doRCP(userVal[userIdx1], userVal[userIdx2])==1) {
+					winCnt[i]++;
+				}else if(doRCP(userVal[userIdx1], userVal[userIdx2])==2) {
+					winCnt[j]++;
+				}
+			}
+
+		}
+
+	}
+
+	private int doRCP(int userVal1, int userVal2) {// 1대1 대결 시켜서 결과 값으로 int출력
+		int result = 0;
+		if (userVal1 == userVal2) {// 비겼을때
+			result = 0;
+		} else if (userVal1 - userVal2 == -2 || userVal1 - userVal2 == 1) {// useri가 이겼을때
+			result = 1;
+		} else {
+			result = 2;
+		}
+
+		return result;
+	}
+
+	private void setUserVal() {
+		Random rand = new Random();
+		Scanner in = new Scanner(System.in);
+		for (int i = 0; i < gameUser.size(); i++) {
+			int idx = gameUser.get(i);
+			if (idx == 0) {
+				System.out.println("user0은 가위 바위 보 중에 하나를 입력하세요.");
+				String userStr = in.nextLine();
+				userVal[idx] = getUserNum(userStr);
+				if (userVal[idx] == -1) {
+					System.out.println("잘못입력하셨습니다. 재입력 바랍니다.");
+					i--;
+					continue;
+				}
+			}else {
+				userVal[idx] = rand.nextInt(3);
+			}
+			
+		}
+		for(int i = 0; i < gameUser.size(); i++) {
+			int idx = gameUser.get(i);
+			System.out.printf("\nuser%d : %s",idx,getUserStr(userVal[idx]));
+		}
+		
+		
+	}
+
+	private int getUserNum(String userStr) {// 문자를 숫자로
+		int result = switch (userStr) {
+		case "가위" -> 0;
+		case "바위" -> 1;
+		case "보" -> 2;
+		default -> -1;
+		};
+		return result;
+	}
+
+	private String getUserStr(int userNum) {// 숫자를 문자로
+		String result = switch (userNum) {
+		case 0 -> "가위";
+		case 1 -> "바위";
+		case 2 -> "보";
+		default -> "";
+		};
+		return result;
+	}
+
+	// 다수의 가위바위보.
+	// 1대1대결
+	// 비기는 경우 : 모두가 같은 값을 낼때, 모두가 다른 값을 낼때.
+	// 이기는 경우 : 위의 경우가 아닐때 winCnt값이 0이 아닐때.
+	// 지는 경우 : 위의 경우가 아닐때 winCnt값이 0일때
+	// user0은 사용자
+	// user0이 지면 컴퓨터끼리 마지막까지 승부.
+	// 다른 모드로 user0이 지면 바로 재경기 시작.
+}

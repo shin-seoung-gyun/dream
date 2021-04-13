@@ -1,0 +1,15 @@
+import java.util.Scanner;
+
+public class RCPExamMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("유저수를 입력하세요.");
+		Scanner in = new Scanner(System.in);
+		int num = in.nextInt();
+		RCPExam rcp = new RCPExam(num);
+		
+		rcp.doGame();
+	}
+
+}
