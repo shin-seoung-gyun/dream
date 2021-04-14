@@ -1,0 +1,21 @@
+
+public class Quiz31Class {
+	int r;
+	double size;
+	final double PI = 3.141592;
+	
+	Quiz31Class(int num){
+		r = num;
+	}
+	Quiz31Class(){
+		
+	}
+	
+	public void process() {
+		size = r*r*PI;
+	}
+	public void output() {
+		System.out.printf("%.2f",size);
+	}
+	
+}
