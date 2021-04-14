@@ -1,0 +1,65 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class FileWriteText {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//자바 6버전 이전
+		
+//		File file = new File("C:\\\\Users\\\\USER\\\\Desktop\\\\파일쓰기.txt");
+//		BufferedWriter writer = null;
+//		
+//		try {
+//			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"UTF-8"));
+//			writer.append("apple");
+//			writer.newLine();
+//			writer.append("banana");
+//		
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO: handle exception
+//		} catch (IOException e) {
+//			// TODO: handle exception
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		} finally {
+//			if(writer!= null) {
+//				try {
+//					writer.close();
+//				} catch (Exception e2) {
+//					// TODO: handle exception
+//					System.err.println(e2);
+//				}
+//			}
+//		}
+		//자바 7버전 이후 마찬가지로 닫아줄 필요없이 알아서 닫아줌
+		Path path = Paths.get("C:\\Users\\USER\\Desktop\\파일쓰기.txt");
+		
+		try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)){
+			
+			writer.append("Monkey");
+			writer.newLine();
+			writer.append("Lion");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,80 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class MemberIO {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Map<String, MemberInfo> memberMap = new HashMap<>();
+		List<String> list = new ArrayList<>();
+
+		Path path = Paths.get("C:\\Users\\USER\\Desktop\\회원정보.txt");
+		try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+//				System.out.println(line);
+				list.add(line);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e);
+		}
+
+		for (int i = 1; i < list.size(); i++) {
+			String temp = list.get(i);
+			var strAry = temp.split(",", -1);
+			String id = strAry[0];
+			String pw = strAry[1];
+			String name = strAry[2];
+			String phone = strAry[3];
+			String address = strAry[4];
+
+			memberMap.put(id, new MemberInfo(id, pw, name, phone, address));
+		}
+
+//		System.out.println(memberMap);
+//		String findName = "강동원";
+//		for(var key : memberMap.keySet()) {//맵에서 키값을가져오는 방식
+//			var val = memberMap.get(key);
+//		}
+//		for(var val : memberMap.values()) {//맵에서 전체 값을가져오는 방식
+//			
+//			if(val.Name.equals(findName)){
+//				System.out.println(val);
+//			}
+//		}
+		String findAddress = "수원시";
+		for (var val : memberMap.values()) {// 맵에서 전체 값을가져오는 방식
+			if (val.Address.indexOf(findAddress) != -1) {
+				System.out.println(val);
+			}
+		}
+
+		memberMap.put("id06", new MemberInfo("id06", "1111", "홍길동", "010-1111-2222", "대전시 중구 문화동"));
+
+		try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8,StandardOpenOption.APPEND)) {
+			
+			var data = memberMap.get("id06");
+			String temp = data.ID + ","+data.PW+","+data.Name+","+data.Phone+","+data.Address;
+			
+			writer.newLine();
+			writer.append(temp);
+			
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+}

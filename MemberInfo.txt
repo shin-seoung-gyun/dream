@@ -1,0 +1,24 @@
+
+public class MemberInfo {
+
+	String ID;
+	String PW;
+	String Name;
+	String Phone;
+	String Address;
+
+	MemberInfo(String id, String pw, String name, String phone, String address) {
+		ID = id;
+		PW = pw;
+		Name = name;
+		Phone = phone;
+		Address = address;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "["+"Name:"+Name+", Phone:"+Phone+", Address:"+Address+"]";
+	}
+
+}

@@ -1,0 +1,58 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+public class FileWriteByte {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		File file = new File("C:\\Users\\USER\\Desktop\\파일쓰기.txt");//파일쓰기
+		byte[] data = { 0x41, 0x42, 0x43 };//파일에 들어갈 내용
+
+//		OutputStream writer = null;
+//		//자바 7버전 이전
+//		try {
+//			writer = new FileOutputStream(file, true);//true = 추가한다 // 여러번 수행시 파일에 들어갈 내용이 여러번 추가됨.//false시 삭제하고 다시씀
+//			writer.write(data);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		} finally {
+//			if(writer != null) {
+//				try {
+//					writer.close();
+//				}catch(Exception e2) {
+//					System.err.println(e2);
+//				}
+//			}
+//		}
+		
+		//자바 7버전 이후
+		Path path = Paths.get("C:\\Users\\USER\\Desktop\\파일쓰기.txt");
+		try(OutputStream stream = Files.newOutputStream(path, StandardOpenOption.APPEND,
+				StandardOpenOption.CREATE,StandardOpenOption.WRITE)) {//길어서 개행함. 추가 쓰기 만들기.
+			stream.write(data);
+			//StandardOpenOption.APPEND 파일끝에 내용 추가
+			//StandardOpenOption.CREATE 파일 새로 만들어서 여는 용도 기존 파일 있을경우 기존파일 사용
+			//StandardOpenOption.WRITE 쓰기 가능 모드.
+			//StandardOpenOption.TRUNCATE_EXISTING 파일을 처음부터 새로 씀 기존 데이터 삭제
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+			
+		
+		
+		
+		
+		
+
+	}
+
+}

@@ -1,0 +1,61 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class FileReadText {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		// 자바 6 이전버전
+//		File file = new File("C:\\Users\\USER\\Desktop\\test.txt");
+//		
+//		BufferedReader reader = null;
+//		try {
+//			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+//			//파일을 한줄씩 읽어 들인다.
+//			String line;
+//			while((line = reader.readLine())!=null) {
+//				System.out.println(line);
+//			}
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO: handle exception
+//		} catch (FileNotFoundException e) {
+//			
+//		} catch(IOException e){
+//			
+//		} finally {
+//		
+//			if(reader != null) {
+//				try {
+//					reader.close();
+//				} catch(Exception e2) {
+//					System.err.println(e2);
+//				}
+//			}
+//		}
+		// 자바 7버전 이후 닫아줄 필요 없음.
+		Path path = Paths.get("C:\\Users\\USER\\Desktop\\test.txt");
+
+		try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println(e);
+		}
+
+	}
+
+}
