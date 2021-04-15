@@ -1,0 +1,39 @@
+
+public class Quiz32 {
+	Number num1;
+	Number num2;
+	char str1;
+	char str2;
+	
+	Quiz32(int num1, int num2) {
+		this.num1=num1;
+		this.num2=num2;
+		if(num1>num2) {
+			System.out.println("max = "+num1);
+		}else {
+			System.out.println("max = "+num2);
+		}
+	}
+	Quiz32(double num1, double num2) {
+		this.num1=num1;
+		this.num2=num2;
+		if(num1>num2) {
+			System.out.println("max = "+num1);
+		}else {
+			System.out.println("max = "+num2);
+		}
+	}
+	Quiz32(char str1, char str2) {
+		this.str1=str1;
+		this.str2=str2;
+		
+		if(str1>str2) {
+			System.out.println("max = "+str1);
+		}else {
+			System.out.println("max = "+str2);
+		}
+	}
+	
+	
+	
+}

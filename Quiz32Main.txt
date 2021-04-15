@@ -1,0 +1,14 @@
+
+public class Quiz32Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		
+		Quiz32 ob1 = new Quiz32(10,20);
+		Quiz32 ob2 = new Quiz32(12.4,9.45);
+		Quiz32 ob3 = new Quiz32('Z','p');
+	}
+
+}
