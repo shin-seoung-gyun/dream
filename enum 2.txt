@@ -1,0 +1,27 @@
+enum Gender2 {
+	MALE(1), FEMALE(2);
+	
+	private Integer s;
+	Gender2 (Integer s){
+		this.s=s;
+	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(s);
+	}
+}
+
+public class Main2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		for(Gender2 g : Gender2.values()) {
+			System.out.println(g.name());
+		}
+		
+		System.out.println(Gender2.valueOf("MALE"));
+	}
+
+}

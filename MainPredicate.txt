@@ -1,0 +1,29 @@
+package FunctionalInterface;
+
+import java.util.function.BiPredicate;
+import java.util.function.IntPredicate;
+import java.util.function.Predicate;
+
+public class MainPredicate {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		IntPredicate even = x->x%2 == 0;//짝수//predicate의 변종.
+		System.out.println(even.test(3)? "짝수":"홀수");
+		
+		IntPredicate one = x->x==1;
+		IntPredicate oneOrEven = one.or(even);
+		System.out.println(oneOrEven.test(1)? "1혹은 짝수":"1이아닌 홀수");//인터페이스
+		System.out.println(	one.or(even).test(1)? "1혹은 짝수":"1이아닌 홀수");//인터페이스
+	
+		Predicate<String> p = x->x.equals("Java");
+		System.out.println(p.test("C++"));
+		System.out.println(p.test("Java"));
+		
+		BiPredicate<Integer, Integer> bp = (x,y)->x>y;//타입 두개 넣는 함수형 인터페이스
+		System.out.println(bp.test(2, 3)?"2가 더 큽니다":"3이 더 큽니다");
+		//Predicate 인터페이스 활용.
+
+	}
+
+}

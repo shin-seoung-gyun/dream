@@ -1,0 +1,41 @@
+interface Negative {
+	int neg(int x);
+}// 추상메서드 하나만있을때 함수형 인터페이스
+interface Printable { void print();}
+
+public class MainLambda {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Negative n;
+		n = (int x) -> {
+			return -x;
+		};
+		///// 함수인자////////구현부////
+
+		System.out.println(n.neg(5));
+
+		Negative n2;
+		n2 = (int x) -> {
+			int num1 = 10;
+			return -x * num1;
+		};// 인터페이스는 같지만 내부 구현부는 다를수 있다.
+		System.out.println(n2.neg(5));
+		//같은 처리//람다식 정리
+		n = (x) -> {return -x;};//여러줄로 구현부가 길어지면 중괄호. return들어가야함.
+		n = x -> {return -x;};//네거티브에 인자값이 정의가 되어있으면 추론함.//생략가능
+		n = (int x) -> -x;//함수에 바로 리턴할수있다면 중괄호 리턴 생략.(중괄호 없을때 return금지)
+		n = (x) -> -x;
+		n = x -> -x;//인자가 하나라면 괄호 생략가능.
+
+		Printable p = ()->{System.out.println("hello java");};
+		p.print();
+		
+		p= () -> System.out.println("hello java");
+		p.print();
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,53 @@
+package FunctionalInterface;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.IntToDoubleFunction;
+import java.util.function.ToDoubleBiFunction;
+import java.util.function.ToIntFunction;
+
+public class MainFunction {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Function<Integer, Integer> add2 = x -> x + 2;
+		Function<Integer, Integer> mul2 = x -> x * 2;
+
+		System.out.println(add2.apply(3));
+		System.out.println(mul2.apply(3));
+
+		System.out.println(add2.andThen(mul2).apply(3));// 순방향 계산
+		System.out.println(add2.compose(mul2).apply(3));// 역방향 계산
+
+		IntToDoubleFunction half = x -> x / 2.0;// 인트형을 더블로 출력해주는 인터페이스
+		System.out.println(half.applyAsDouble(10));
+
+		ToDoubleBiFunction<String, Integer> circleArea = (s, i) -> Double.parseDouble(s) * i * i;
+		double area = circleArea.applyAsDouble("3.14", 5);
+		System.out.println(area);
+
+		Function<Car, String> f1 = c -> c.getModel();
+		ToIntFunction<Car> f2 = c -> c.getAge();
+
+		for (Car car : Car.cars) {
+			System.out.println("(" + f1.apply(car) + "," + f2.applyAsInt(car) + ")");
+		}
+		double avgAge = average(Car.cars, c->c.getAge());
+		double avgMile = average(Car.cars, c->c.getMileage());
+		System.out.println();
+		System.out.println("평균 연식 = "+avgAge);
+		System.out.println("평균 주행거리 = "+avgMile);
+		
+
+	}
+
+	static public double average(List<Car> cars, ToIntFunction<Car> f) {
+		double sum = 0.0;
+		for (var car : cars) {
+			sum += f.applyAsInt(car);
+		}
+		return sum / cars.size();
+
+	}
+
+}

@@ -1,0 +1,27 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class MainComparable {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Rectangle[] rAry = {new Rectangle(3, 5),new Rectangle(2	, 10),new Rectangle(5, 5)};
+		
+		
+		Arrays.sort(rAry);
+		
+		System.out.println(Arrays.toString(rAry));
+		
+		
+		Arrays.sort(rAry, (o1,o2)->o1.width-o2.width);//람다식 어렵다//오름 차순으로 하면 이것 내림차순이면 순서만 바꾸면됨.comparable인터페이스 없으면 사용안됨.
+		System.out.println(Arrays.toString(rAry));
+		
+		Arrays.sort(rAry, (o1,o2)->Double.compare(o1.getArea(), o2.getArea()));//너비 기준 너비가 더블타입이라서 래퍼클래스 더블의 함수 컴페어투로 비교함.
+		System.out.println(Arrays.toString(rAry));
+		
+		Arrays.sort(rAry,Comparator<T>);//Comparator<T>에 compareto 메서드가 포함되어 두 개체를 비교하기위해 람다를 사용.
+		
+		
+	}
+
+}

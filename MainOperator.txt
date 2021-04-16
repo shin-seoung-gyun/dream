@@ -1,0 +1,68 @@
+package FunctionalInterface;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.IntBinaryOperator;
+import java.util.function.IntUnaryOperator;
+import java.util.function.UnaryOperator;
+
+
+
+public class MainOperator {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		IntUnaryOperator add2 = x-> x+2;//인트를 입력받고 인트 출력
+		System.out.println(add2.applyAsInt(5));
+		
+		UnaryOperator<Integer> add2again = x->x+2;
+		System.out.println(add2again.apply(5));
+		
+		IntUnaryOperator mul2 = x->x*2;
+		IntUnaryOperator add2mul2 = add2.andThen(mul2);
+		System.out.println(add2mul2.applyAsInt(5));
+		
+		IntBinaryOperator add = (x,y)->x+y;
+		System.out.println(add.applyAsInt(10, 20));
+		
+		List<Integer> list = new ArrayList<>();
+		list.add(5);
+		list.add(6);
+		list.add(7);
+		list.replaceAll(e->e+10);//람다식을넣거나 인터페이스 넣는다
+		System.out.println(list);
+		
+//		IntUnaryOperator test = x-> {list.set(0, x); return x;};
+//		test.applyAsInt(9999);
+		
+		List<String> listStr = new ArrayList<>();
+		listStr.add("apple");
+		listStr.add("banana");
+		listStr.add("kiwi");
+		listStr.replaceAll(s->"과일-"+s);
+		System.out.println(listStr);
+		listStr.replaceAll(s->s.substring(4));
+		System.out.println(listStr);
+		
+		List<Car> newCars = remodeling(Car.cars, c-> new Car("뉴"+c.getModel(), c.isGasoline(),c.getAge(),c.getMileage()));
+		System.out.println(newCars);
+	}
+	
+	static public <T extends Car>List remodeling(List<T> all, UnaryOperator<T> o){
+		ArrayList<T> result = new ArrayList<>();
+		
+		for(var val : all) {
+			result.add(o.apply(val));
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

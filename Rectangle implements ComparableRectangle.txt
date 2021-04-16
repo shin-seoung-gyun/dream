@@ -1,0 +1,28 @@
+
+public class Rectangle implements Comparable<Rectangle>{//자바에서 기본적으로 제공하는 인터페이스
+	int width, height;
+
+	public Rectangle(int width, int height) {
+		super();
+		this.width = width;
+		this.height = height;
+	}
+	
+	public double getArea() {
+		return (double) width*height;
+	}
+	
+	public String toString() {
+		return String.format("사각형[폭=%d, 높이=%d]", width,height);
+	}
+	@Override
+		public int compareTo(Rectangle o) {//o는 비교할 대상
+		//현재 클래스 값이 더 크면 양수 같으면 0 작으면 음수.	
+		
+		
+		
+			return height-o.height;
+		}
+	
+
+}

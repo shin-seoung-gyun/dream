@@ -1,0 +1,91 @@
+package FunctionalInterface;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.IntUnaryOperator;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
+import java.util.function.UnaryOperator;
+
+public class MainComparator {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// 가장많이쓰이는 function comparator정렬
+
+		Comparator<Car> modelCom = Comparator.comparing(Car::getModel);
+//		System.out.println(Car.cars);//정렬전
+//		System.out.println();
+//		Collections.sort(Car.cars, modelCom);
+//		System.out.println(Car.cars);//정렬후
+//		System.out.println();
+//		Collections.sort(Car.cars, modelCom.reversed());
+//		System.out.println(Car.cars);//내림차순 정렬후
+//		
+//		
+//		Collections.sort(Car.cars, Comparator.comparing(Car::getMileage));
+//		System.out.println(Car.cars);//마일리지 정렬후
+//		
+//		Collections.sort(Car.cars, Comparator.comparing(Car::getMileage, (a,b)->b-a));//마일리지 내림차순 람다식
+
+		Collections.sort(Car.cars, modelCom.thenComparing(Car::getAge));
+		System.out.println(Car.cars);
+
+		Car[] cars = Car.cars.toArray(new Car[10]);
+		System.out.println(Arrays.toString(cars));
+		Arrays.sort(cars, Comparator.comparing(Car::getAge).thenComparing(modelCom));
+		System.out.println(Arrays.toString(cars));
+
+		// ToIntFuntion
+		// UnarOperator 인터페이스 활요하여
+		// 그 숫자의 길이가 리턴.
+
+		IntUnaryOperator u1 = i -> Integer.toString(i).length();
+
+		System.out.println(u1.applyAsInt(9999));
+
+		// operator, 알파벳의 문자열을 입력받으면 첫 문자열만 대문자로 변경하여 출력
+
+		UnaryOperator<String> u2 = i -> {
+			char s = i.charAt(0);
+			String a = Character.toString(s).toUpperCase();
+			String iv = a;
+			for (int k = 1; k < i.length(); k++) {//substring 함수사용하면됨.....삽질함...
+				iv += i.charAt(k);
+			}
+			return iv;
+		};
+
+		System.out.println(u2.apply("apple"));
+
+		// (3) 매서드 -
+		// public static int getSumCom(List<Car>, Predicate<Car>,ToIntFuntion<Car>)
+
+		
+		int result = getSumCom(Car.cars, o1->o1.getAge()>8 , Car::getMileage);
+		int result2 = getSumCom(Car.cars, o1->o1.getMileage()>10000 , Car::getAge);
+		
+		
+		System.out.println(result);
+		System.out.println(result2);
+		
+		
+	}
+	
+	public static <T> int getSumCom(List<T> list, Predicate<T> pred, ToIntFunction<T> func) {
+		int sum = 0;
+		for(var val : list) {
+			if(pred.test(val)) {
+				sum += func.applyAsInt(val);
+			}
+		}
+		return sum;
+		
+		
+	}
+	
+	
+
+}

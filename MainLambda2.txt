@@ -1,0 +1,77 @@
+import java.util.Arrays;
+
+interface Mathematical {
+	double caculate(double d);
+}
+
+interface Pickable {
+	char pick(String s, int i);
+}
+
+interface Computable {
+	int compute(int x, int y);
+}
+
+class Utils {
+	int add(int a, int b) {
+		return a + b;
+	}
+}
+
+public class MainLambda2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Mathematical m;
+		Pickable p;
+		Computable c;
+
+		m = d -> Math.abs(d);// abs는 절대값.
+		System.out.println(m.caculate(-100));
+
+		// 아래 방식은 매서드 참조, 이미 정의 되어있는 매서드를 사용할 경우 같은 결과.
+		m = Math::abs;
+		System.out.println(m.caculate(-100));
+
+		p = (a, b) -> a.charAt(b);
+		p = String::charAt;
+		System.out.println(p.pick("hello", 0));
+
+		Utils utils = new Utils();
+		int num = 10;
+		int num2 = 20;
+		c = (a, b) -> {
+			return utils.add(num, num2);
+		};// 참조는 가능하나 값을 새로 바꿀수 없음. 람다식 안에서 상수값으로 처리함. 새로운 변수 선언은 가능
+
+//		c=utils::add;
+		System.out.println(c.compute(30, 40));
+
+		NewObject<String> s;
+		NewArray<Integer> i;
+
+		s = x -> new String(x);
+
+		s = String::new;
+
+		i = x -> new Integer[x];
+
+		i = Integer[]::new;
+
+		String str = s.getObject("나는 문자열 입니다.");
+		System.out.println(str);
+		Integer[] ary = i.getArray(10);
+		System.out.println(Arrays.toString(ary));
+
+	}
+
+	interface NewObject<T> {
+		T getObject(T o);
+	}
+
+	interface NewArray<T> {
+		T[] getArray(int size);
+	}
+
+}

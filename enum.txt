@@ -1,0 +1,30 @@
+
+enum Gender {MALE, FEMALE};
+
+enum Direction {NORTH, SOUTH, EAST, WEST}
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Gender gender = Gender.FEMALE;
+		
+		if(gender==Gender.MALE) {
+			System.out.println(Gender.MALE+"은 병역 의무가 있다.");
+		}else {
+			System.out.println(Gender.FEMALE+"은 병역의 의무가 없다.");
+		}
+		
+		switch (gender) {
+		case MALE -> System.out.println(Gender.MALE + "은 병역의무있다");
+		case FEMALE -> System.out.println(Gender.MALE + "은 병역의무없다");
+		default ->System.out.println("");
+		}
+		
+
+		
+		
+		
+	}
+
+}

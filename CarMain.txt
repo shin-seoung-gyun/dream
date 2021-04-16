@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
+public class CarMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// 가솔린이 아닌 차만 찾기.
+		List<Car> diselCars = findCars(Car.cars, c -> !c.isGasoline());
+		System.out.println(diselCars);
+		// 연식이 10년이상된 차 찾기.
+		List<Car> oldCars = findCars(Car.cars, c -> c.getAge() >= 10);
+		System.out.println("연식 10년이상된 차: " + oldCars);
+
+		System.out.println(Car.str);// 상수는 객체 없이 참초가능
+
+		// 연식이 10년 이상이면 서 가솔린이 아닌 차만 찾기.
+
+		List<Car> olCars = findCars(Car.cars, c -> c.getAge() >= 10 && !c.isGasoline());
+		System.out.println("연식 10년이상이면서 가솔린이 아닌 차: " + olCars);
+		System.out.println();
+		printCars(olCars, c -> System.out.printf("%s(%d,%d)\n", c.getModel(), c.getAge(), c.getMileage()));
+
+	}
+
+	public static List<Car> findCars(List<Car> all, Predicate<Car> cp) {
+		List<Car> result = new ArrayList<>();
+
+		for (Car car : all) {
+			if (cp.test(car)) {
+				result.add(car);
+			}
+		}
+		return result;
+
+	}
+
+	public static void printCars(List<Car> all, CarConsumer cc) {
+		for (var val : all) {
+			cc.accept(val);
+		}
+	}
+
+}
