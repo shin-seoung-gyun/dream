@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class CalculationMain1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner in = new Scanner(System.in);
+		System.out.println("수식을 입력하세요.");
+		String inStr = in.nextLine();
+		Calculation1 cal = new Calculation1(inStr);
+		cal.doCalcul();
+	}
+
+}
