@@ -1,0 +1,11 @@
+
+public class Quiz33Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Quiz33 quiz33 = new Quiz33();
+		quiz33.doShape();
+		
+	}
+
+}

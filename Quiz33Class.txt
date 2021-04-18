@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+public class Quiz33 {
+	Scanner in = new Scanner(System.in);
+	double area;
+	final static double PI = 3.141592;
+	
+	public Quiz33() {
+		super();
+		this.area = 0.0;
+	}
+	
+	private void circle() {
+		System.out.println("****원의 넓이****");
+		System.out.println("원의 반지름을 입력하세요.");
+		int radius = in.nextInt();
+		area = (double)radius*radius*PI;
+		System.out.println();
+		System.out.println();
+		outPut();
+		
+	}
+	
+	private void triangle() {
+		System.out.println("****원의 넓이****");
+		System.out.println("삼각형의 밑변을 입력하세요.");
+		int width = in.nextInt();
+		System.out.println("삼각형의 높이를 입력하세요.");
+		int height = in.nextInt();
+		System.out.println();
+		System.out.println();
+		area = (double)width*(double)height/2;
+		outPut();
+	}
+	private void trapezoid() {
+		// {(윗변)+(아랫변)}×(높이) ÷ 2
+		System.out.println("****사다리꼴의 넓이****");
+		System.out.println("사다리꼴의 윗변을 입력하세요.");
+		int upper = in.nextInt();
+		System.out.println("사다리꼴의 아랫변을 입력하세요.");
+		int lower = in.nextInt();
+		System.out.println("사다리꼴의 높이를 입력하세요.");
+		int height = in.nextInt();
+		System.out.println();
+		System.out.println();
+		area = ((double)upper+(double)lower)*height/2;
+		outPut();
+		
+	}
+	private void outPut() {
+		System.out.printf("넓이는  %.2f\n\n",area);
+		
+	}
+	private boolean intMenu() {
+		
+		System.out.println("****도형선택****");
+		System.out.println();
+		System.out.println("1. 원의 넓이");
+		System.out.println();
+		System.out.println("2. 삼각형의 넓이");
+		System.out.println();
+		System.out.println("3. 사다리꼴의 넓이");
+		System.out.println();
+		System.out.println("4. 종료");
+		System.out.println();
+		System.out.println("선택 : ");
+		int choice = in.nextInt();
+		boolean exit = true;
+		switch (choice) {
+		case 1 -> {
+			circle();
+			exit = true;
+		}
+		case 2 -> {
+			triangle();
+			exit = true;
+		}
+		case 3 -> {
+			trapezoid();
+			exit = true;
+		}
+		case 4 -> {
+			exit = false;
+		}
+		default ->{
+			System.out.println("다시입력하세요");
+			exit = true;
+		}
+	
+		}
+		return exit;
+	}
+	void doShape() {
+		boolean doArea = true;
+		while(doArea) {
+			doArea = intMenu();
+			
+		}
+		
+	}
+	
+	
+	
+}
