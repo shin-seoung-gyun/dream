@@ -3,90 +3,105 @@ import java.util.List;
 
 public class Calculation1 {
 	String inStr;
-	String culStr;
 	List<String> culList = new ArrayList<>();
 	String[] strAry;
-	
+
 	public Calculation1(String inStr) {
 		super();
 		this.inStr = inStr;
-		culStr = "";
+
 	}
+
 	void doCalcul() {
-		findInt();
-		
-		calOrder();
-		
-		System.out.println(culList);
-		
+		lastOder(inStr);
 	}
-	
-	//우선순위 정하는 메서드(사칙연산)
-	private void calOrder() {
+
+	// 괄호를 포함한 우선순위 매서드//실행매서드
+	public void lastOder(String inStr) {
+		boolean calculator = true;
+		while (calculator) {
+			if (inStr.contains("(") || inStr.contains(")")) {
+				int i = inStr.indexOf(")");
+				int j = inStr.lastIndexOf("(");
+				String str1 = inStr.substring(j + 1, i);// 계산하기위한 범위
+				String str = inStr.substring(0, j);// 앞부분
+				String str2 = inStr.substring(i + 1);// 뒷부분
+				inStr = "";
+				inStr = str + calOrder(str1) + str2;
+			}else if (inStr.length() == 1) {
+				calculator = false;
+				System.out.println(inStr);
+			} else {
+				inStr = calOrder(inStr);
+				continue;
+			}
+		}
+	}
+
+	// 우선순위 정하는 메서드(사칙연산)
+	private String calOrder(String inStr) {
+		String culStr = findInt(inStr);
+
 		strAry = culStr.split(",");
-		for(int i = 0; i<strAry.length;i++) {
+		for (int i = 0; i < strAry.length; i++) {
 			culList.add(strAry[i]);
 		}
-		for(int i = 0; i<culList.size();i++) {
+		for (int i = 0; i < culList.size(); i++) {
 			String a = culList.get(i);
-			if(a.equals("*")||a.equals("/")) {
-				double b = calCul(Double.parseDouble(culList.get(i-1)),Double.parseDouble(culList.get(i+1)), a);
-				culList.set(i-1, Double.toString(b));
-				culList.remove(i+1);
+			if (a.equals("*") || a.equals("/")) {
+				double b = calCul(Double.parseDouble(culList.get(i - 1)), Double.parseDouble(culList.get(i + 1)), a);
+				culList.set(i - 1, Double.toString(b));
+				culList.remove(i + 1);
 				culList.remove(i);
 				i--;
 				continue;
 			}
 		}
-		for(int i = 0; i<culList.size();i++) {
+		for (int i = 0; i < culList.size(); i++) {
 			String a = culList.get(i);
-			if(a.equals("+")||a.equals("-")) {
-				double b = calCul(Double.parseDouble(culList.get(i-1)),Double.parseDouble(culList.get(i+1)), a);
-				culList.set(i-1, Double.toString(b));
-				culList.remove(i+1);
+			if (a.equals("+") || a.equals("-")) {
+				double b = calCul(Double.parseDouble(culList.get(i - 1)), Double.parseDouble(culList.get(i + 1)), a);
+				culList.set(i - 1, Double.toString(b));
+				culList.remove(i + 1);
 				culList.remove(i);
 				i--;
 				continue;
 			}
 		}
-		
+		return culList.get(0);
+
 	}
-	
-	//입력된 값을 숫자와 연산자로 나눠 새로운 문자열에 저장// 입력받은 값
-	private String findInt(){//내부 필드 사용하면 static 사용 x
-		culStr  = "";
-		for(int i = 0; i< inStr.length(); i++) {
+
+	// 입력된 값을 숫자와 연산자로 나눠 새로운 문자열에 저장// 입력받은 값
+	private String findInt(String inStr) {// 내부 필드 사용하면 static 사용 x
+		String culStr = "";
+		for (int i = 0; i < inStr.length(); i++) {
 			char c = inStr.charAt(i);
-			if(Character.isDigit(c)==true) {
+			if (Character.isDigit(c) == true) {
 				culStr += Character.toString(c);
-			}else {
-				culStr += ","+Character.toString(c)+",";
+			} else {
+				culStr += "," + Character.toString(c) + ",";
 			}
 		}
 		return culStr;
 	}
 
-	
-	
-	
 	private static double calCul(double num1, double num2, String str) {
 		double result = 0;
-		if(str.equals("+")) {
-			result = num1+num2;
-		}else if(str.equals("-")) {
-			result = num1-num2;
-		}else if(str.equals("*")) {
-			result = num1*num2;
-		}else if(str.equals("/")) {
-			result = num1/num2;
+		if (str.equals("+")) {
+			result = num1 + num2;
+		} else if (str.equals("-")) {
+			result = num1 - num2;
+		} else if (str.equals("*")) {
+			result = num1 * num2;
+		} else if (str.equals("/")) {
+			result = num1 / num2;
 		}
 		return result;
 	}
-	
-	
-	
-	//단순 사칙 연산
-	//연산자 우선 순위
-	//괄호 우선 순위
+
+	// 단순 사칙 연산
+	// 연산자 우선 순위
+	// 괄호 우선 순위
 
 }
