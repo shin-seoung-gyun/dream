@@ -28,20 +28,23 @@ public class Calculation1 {
 				String str2 = inStr.substring(i + 1);// 뒷부분
 				inStr = "";
 				inStr = str + calOrder(str1) + str2;
-			}else if (inStr.length() == 1) {
-				calculator = false;
-				System.out.println(inStr);
 			} else {
-				inStr = calOrder(inStr);
-				continue;
+				String result = calOrder(inStr);
+				inStr = result;
+				System.out.println(inStr);
+				calculator=false;
 			}
+			
+			
+			
+			
 		}
 	}
 
 	// 우선순위 정하는 메서드(사칙연산)
 	private String calOrder(String inStr) {
+		culList.removeAll(culList);
 		String culStr = findInt(inStr);
-
 		strAry = culStr.split(",");
 		for (int i = 0; i < strAry.length; i++) {
 			culList.add(strAry[i]);
@@ -77,9 +80,11 @@ public class Calculation1 {
 		String culStr = "";
 		for (int i = 0; i < inStr.length(); i++) {
 			char c = inStr.charAt(i);
-			if (Character.isDigit(c) == true) {
+			if (Character.isDigit(c) == true||c=='.') {
 				culStr += Character.toString(c);
-			} else {
+			}else if(inStr.charAt(i)=='-'&&i==0) {
+				culStr += Character.toString(c);
+			}else {
 				culStr += "," + Character.toString(c) + ",";
 			}
 		}
