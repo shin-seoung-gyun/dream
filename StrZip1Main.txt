@@ -1,0 +1,20 @@
+
+public class StrZip1Main{
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		StringZip1 sz = new StringZip1();
+		String str = "aabbbcddaaabcccbb";
+		sz.strToZip(str);
+		
+		String zip ="z3a2c6v1b3";
+		sz.zipToStr(zip);
+		
+		
+		
+		
+		
+		
+	}
+
+}

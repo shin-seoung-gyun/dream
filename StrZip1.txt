@@ -1,0 +1,77 @@
+
+public class StrZip1{
+	private String str;
+	private String strZip;
+	
+	public StrZip1(String str, String strZip) {
+		super();
+		this.str = str;
+		this.strZip = strZip;
+	}
+	
+	public StrZip1() {
+		
+	}
+	
+	//문자열 압축 메서드
+	public void strToZip(String str) {
+		String strZip = "";
+		int cnt = 1;
+		for(int i = 0; i<str.length()-1; i++) {
+			int idx = i;
+			int nextIdx = i+1;
+			if(str.charAt(idx)==str.charAt(nextIdx)) {
+				cnt++;
+				if(idx==str.length()-2){//마지막 인덱스 비교 하기 위한 조건 추가.
+					strZip += str.charAt(idx);
+					strZip += cnt;
+				}
+			}else{
+				strZip += str.charAt(idx);
+				strZip += cnt;
+				cnt = 1;
+			}
+		}
+		System.out.println(strZip);
+	}
+	//문자열 해제 매서드
+	public void zipToStr(String strZip) {
+		String release = "";
+		String num = "";
+		int cnt2 = 0;
+		for(int i = 0; i<strZip.length();i++) {
+			int idx = i;
+			if(Character.isDigit(strZip.charAt(idx))==false) {
+				if(cnt2==0) {
+					release += strZip.charAt(idx);
+				}else {
+					int inNum = Integer.parseInt(num);
+					for(int k = 0; k<inNum-1;k++) {
+						release += release.charAt(release.length()-1);
+					}
+					cnt2=0;
+					num="";
+					release += strZip.charAt(idx);
+				}
+			}else if(Character.isDigit(strZip.charAt(idx))==true){
+				num += strZip.charAt(idx);
+				cnt2++;
+				if(i==strZip.length()-1) {
+					int inNum = Integer.parseInt(num);
+					for(int k = 0; k<inNum-1;k++) {
+						release += release.charAt(release.length()-1);
+					}
+					cnt2=0;
+					num="";
+				}
+				
+			}
+		}
+		System.out.println(release);
+		
+	}
+	
+	
+	
+	
+}
