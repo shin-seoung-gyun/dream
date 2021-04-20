@@ -1,0 +1,62 @@
+
+public class RCP2 {
+
+	public boolean allZero(int[] winCnt) {
+		boolean result = true;
+		for (int i = 0; i < winCnt.length; i++) {
+			if (winCnt[i] == 0) {
+				result = true;
+			} else {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public boolean allTrue(int[] winCnt) {
+		boolean result = true;
+		for (int i = 0; i < winCnt.length; i++) {
+			if (winCnt[i] > 0) {
+				result = true;
+			} else {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+
+	public int RcpVal(int num1, int num2) {// 1대1대결하는 처리
+		int result = 0;
+		if (num1 == num2) {
+			result = 0;
+		} else if (num1 - num2 == -2 || num1 - num2 == 1) {// user1 승
+			result = 1;
+		} else {
+			result = 2;
+		}
+		return result;
+	}
+
+	public int getUserNum(String userStr) {// 문자를 숫자로
+		int result = switch (userStr) {
+		case "가위" -> 0;
+		case "바위" -> 1;
+		case "보" -> 2;
+		default -> -1;
+		};
+		return result;
+	}
+
+	public String getUserStr(int userNum) {// 숫자를 문자로
+		String result = switch (userNum) {
+		case 0 -> "가위";
+		case 1 -> "바위";
+		case 2 -> "보";
+		default -> "";
+		};
+		return result;
+	}
+
+}

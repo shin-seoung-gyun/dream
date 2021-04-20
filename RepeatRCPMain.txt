@@ -1,0 +1,119 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+public class RCP2Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		RCP2 rcp = new RCP2();
+		Random rand = new Random();
+		Scanner in = new Scanner(System.in);
+		int user = 0;
+		while (true) {
+			System.out.println("유저 수 입력");
+			user = in.nextInt();
+			if (user < 2) {
+				System.out.println("잘못 입력 하셨습니다.");
+				continue;
+			} else {
+				break;
+			}
+		}
+
+		// 유저 값 받는 부분.
+		List<Integer> userList = new ArrayList<>();// 유저들의 인덱스 값을 리스트로 저장.
+		for (int i = 0; i < user; i++) {
+			userList.add(i);
+		}
+		int[] userVal = new int[user];// 유저의 수만큼의 크기를 가진 배열 생성.//유저들이낸 값을저장
+
+		while (true) {
+			for (int i = 0; i < userList.size(); i++) {
+				int index = userList.get(i);// 유저 인덱스 리스트에서 하나씩 가져옴.//값은 나중에 변동 예정
+				if (index == 0) {
+					System.out.println("\nUser[0]은 가위, 바위, 보, 값 중 하나를 입력하세요 ");
+
+					String userStr = in.next();
+
+					userVal[index] = rcp.getUserNum(userStr);
+
+					if (userVal[index] == -1) {
+						System.out.println("잘못 입력 하셨습니다.");
+						i--;
+						continue;
+					}
+				} else {
+					userVal[index] = rand.nextInt(3);// 0~2의 랜덤한 수 가져옴.
+
+				}
+
+			}
+			// 유저들이 낸 값 출력하기
+			System.out.println("  <유저들이 낸 값>");
+			for (int i = 0; i < userList.size(); i++) {
+				int idx = userList.get(i);
+				String getVal = rcp.getUserStr(userVal[idx]);
+				System.out.printf("\nUser[%d] : %s", idx, getVal);
+			}
+
+			// winCnt 세기
+			int[] winCnt = new int[user];
+			for (int k = 0; k < winCnt.length; k++) {// winCnt 초기화
+				winCnt[k] = 0;
+			}
+			for (int i = 0; i < userList.size(); i++) {// 모든 유저가 한번씩 대결.
+				for (int j = i + 1; j < userList.size(); j++) {
+					int index1 = userList.get(i);
+					int index2 = userList.get(j);
+					int result = rcp.RcpVal(userVal[index1], userVal[index2]);
+					if (result == 1) {
+						winCnt[index1]++;
+					} else if (result == 2) {
+						winCnt[index2]++;
+					}
+				}
+			}
+			// winCnt를 이용한 승자판별
+			System.out.println("\n\n게임 결과 :");
+			boolean reGame = (rcp.allTrue(winCnt) || rcp.allZero(winCnt)) ? true : false;
+
+			if (reGame == true) {
+				System.out.println("모두 비겼습니다 재경기합니다.");
+				continue;
+			} else {
+				for (int i = 0; i < userList.size(); i++) {
+					int index = userList.get(i);
+					if (winCnt[index] > 0) {
+						System.out.printf("\nUser[%d]는 승리", index);
+
+					} else if (winCnt[index] == 0) {// 해당 인덱스의 유저가 패배했을때.
+						System.out.printf("\nUser[%d]는 패배", index);
+
+					}
+
+				}
+				
+				Iterator<Integer> iter = userList.iterator();// 반복자는 그냥 외우자...
+				while (iter.hasNext()) {
+					int idx = iter.next();
+					if (winCnt[idx] == 0) {// 리스트에서 추출한 값을 윈카운트에 넣었을때 조건을 만족하면 삭제하는 처리
+						iter.remove();
+
+					}
+				}
+
+				if (userList.size() == 1) {
+					System.out.printf("\n최종승자는 User[%d]", userList.get(0));
+					break;
+				}else {
+					System.out.printf("\n\n승자 끼리 재경기 합니다");
+				}
+			}
+		}
+
+	}
+
+}
