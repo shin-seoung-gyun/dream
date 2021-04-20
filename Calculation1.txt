@@ -23,21 +23,30 @@ public class Calculation1 {
 			if (inStr.contains("(") || inStr.contains(")")) {
 				int i = inStr.indexOf(")");
 				int j = inStr.lastIndexOf("(");
-				String str1 = inStr.substring(j + 1, i);// 계산하기위한 범위
-				String str = inStr.substring(0, j);// 앞부분
-				String str2 = inStr.substring(i + 1);// 뒷부분
-				inStr = "";
-				inStr = str + calOrder(str1) + str2;
+				if (i < j) {// 고민해볼것.아래 수정(완료).
+					String bStr = inStr.substring(j);// "("의 뒤부터 잘라내서 스트링에 저장
+					int k = bStr.indexOf(")");// 해당 괄호의 가장 처음 닫는 괄호 인덱스
+					String last = bStr.substring(1, k);// 괄호 안의 수식
+					inStr = inStr.substring(0, j) + calOrder(last) + bStr.substring(k + 1);// 괄호부분은 애초에 제외하고 합침. 앞부분과
+																							// 괄호안 계산한 결과 그 뒷부분 합치기
+
+				} else {
+
+					String str1 = inStr.substring(j + 1, i);// 계산하기위한 범위
+					String str = inStr.substring(0, j);// 앞부분
+					String str2 = inStr.substring(i + 1);// 뒷부분
+					inStr = "";
+					inStr = str + calOrder(str1) + str2;
+
+				}
+
 			} else {
 				String result = calOrder(inStr);
 				inStr = result;
 				System.out.println(inStr);
-				calculator=false;
+				calculator = false;
 			}
-			
-			
-			
-			
+
 		}
 	}
 
@@ -48,6 +57,17 @@ public class Calculation1 {
 		strAry = culStr.split(",");
 		for (int i = 0; i < strAry.length; i++) {
 			culList.add(strAry[i]);
+		}
+		for (int i = 0; i < culList.size(); i++) {
+			String a = culList.get(i);
+			if (a.equals("^")) {
+				double b = calCul(Double.parseDouble(culList.get(i - 1)), Double.parseDouble(culList.get(i + 1)), a);
+				culList.set(i - 1, Double.toString(b));
+				culList.remove(i + 1);
+				culList.remove(i);
+				i--;
+				continue;
+			}
 		}
 		for (int i = 0; i < culList.size(); i++) {
 			String a = culList.get(i);
@@ -80,12 +100,19 @@ public class Calculation1 {
 		String culStr = "";
 		for (int i = 0; i < inStr.length(); i++) {
 			char c = inStr.charAt(i);
-			if (Character.isDigit(c) == true||c=='.') {
+			
+			if (Character.isDigit(c) == true || c == '.') {
 				culStr += Character.toString(c);
-			}else if(inStr.charAt(i)=='-'&&i==0) {
+			} else if (inStr.charAt(i) == '-' && i == 0) {
 				culStr += Character.toString(c);
-			}else {
-				culStr += "," + Character.toString(c) + ",";
+			} else {//수식뒤에 음수가 올경우 계산을 위해서 추가 조건 추가
+				char m = inStr.charAt(i - 1);
+				if (Character.isDigit(m) == false&&c=='-') {
+					culStr += Character.toString(c);
+				} else {
+					culStr += "," + Character.toString(c) + ",";
+				}
+
 			}
 		}
 		return culStr;
@@ -101,7 +128,10 @@ public class Calculation1 {
 			result = num1 * num2;
 		} else if (str.equals("/")) {
 			result = num1 / num2;
+		} else if (str.equals("^")) {
+			result = Math.pow(num1, num2);
 		}
+
 		return result;
 	}
 
