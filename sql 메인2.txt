@@ -1,0 +1,65 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+
+public class Main2 {
+
+	private static final String Q_INSERT_MONEY = "INSERT INTO Pocketmoney Values(SEQ_PM.NEXTVAL,?,?)";//
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Connection conn = null;// DB연결상태를 담는 객체
+		PreparedStatement pstm = null; // sql문을 담는 객체
+		ResultSet rs = null;// 쿼리 결과 받는 객체
+
+		try {
+			conn = DBConnection.getConnection();// db연결
+			String query = "select * from book";// 쿼리문 저장하는 문자열//select문 자바에서 확인하기.
+			pstm = conn.prepareStatement(Q_INSERT_MONEY);//쿼리문 디비와 연결해서 실행하는 처리
+			//내역을 db로 보낸다
+			Scanner in = new Scanner(System.in);
+			System.out.println("지출 혹은 수입 내역을 입력하세요.");
+			System.out.println("내역 :");
+			String item = in.nextLine();
+			System.out.println("금액 :");
+			int money = in.nextInt();
+			
+			pstm.setString(1, item);//앞의 숫자는 ?위치
+			pstm.setInt(2, money);
+			
+			rs = pstm.executeQuery();// 결과값 받기
+
+			
+				
+				
+				
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("SQL에 예외 발생");
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstm != null) {
+					pstm.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				throw new RuntimeException(e2.getMessage());
+			}
+		}
+
+	}
+
+}

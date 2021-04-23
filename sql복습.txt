@@ -1,0 +1,60 @@
+--내부 조인 방식.
+SELECT name
+FROM customer,orders,book
+where customer.custid=orders.custid and book.bookid=orders.bookid
+and book.publisher in (select publisher from customer,orders,book where customer.custid=orders.custid and book.bookid=orders.bookid and name = '박지성')--and !='박지성';
+MINUS
+select name
+from customer
+where name = '박지성';
+--부속질의 방식
+select name
+from customer
+where custid in (
+select custid
+from orders
+where bookid in (
+select bookid
+from book
+where publisher in(
+select distinct publisher
+from book
+where bookid in(
+select bookid 
+from orders
+where custid in(
+select custid
+from customer
+where name = '박지성')))))and name!='박지성';
+--두개이상의 서로다른 출판사에서 도서를 구매한 고객의 이름
+
+--group by와 having, 스칼라 내부질의 사용.
+select (select name from customer c1 where c1.custid=o1.custid) "name"
+from orders o1, book b1
+where o1.bookid=b1.bookid GROUP BY o1.custid HAVING count(distinct b1.publisher)>=2;
+
+--전체고객의 30%이상이 구매한 도서
+select bookname from book where bookid in
+(select bookid from orders GROUP by bookid having count(bookid)>=round((select count(*) from customer)*0.3));
+
+
+--인덱스
+create index ix_book on book (bookname);
+
+
+insert into pocketmoney values (1,'아르바이트',1000000);
+insert into pocketmoney values (2,'식비',-300000);
+--자동증가 시퀀스
+create SEQUENCE SEQ_PM INCREMENT by 1 start with 3;
+
+insert into pocketmoney values (SEQ_PM.nextval ,'여행',-100000);
+insert into pocketmoney values (SEQ_PM.nextval ,'용돈',50000);
+
+--db이름 출력
+select name, db_unique_name from v$database;
+
+--delete from pocketmoney where no in (select max(no) from pocketmoney); 마지막 입력 삭제하는 처리
+
+--지출액 1~3위 찾기
+SELECT item,p1 FROM (SELECT item,SUM(MONEY) as p1 FROM pocketmoney  WHERE (MONEY<0)GROUP BY ITEM ORDER BY SUM(MONEY)) Where Rownum<=3;
+

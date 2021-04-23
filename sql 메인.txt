@@ -1,0 +1,51 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Connection conn = null;// DB연결상태를 담는 객체
+		PreparedStatement pstm = null; // sql문을 담는 객체
+		ResultSet rs = null;// 쿼리 결과 받는 객체
+
+		try {
+			conn = DBConnection.getConnection();// db연결
+			String query = "select * from book";// 쿼리문 실행
+			pstm = conn.prepareStatement(query);
+			rs = pstm.executeQuery();// 결과값 받기
+
+			System.out.println("----------------------------------------------");
+
+			while (rs.next()) {
+				System.out.println(rs.getString(1));// bookid
+				System.out.println(rs.getString(2));// bookname
+				System.out.println(rs.getString(3));// publisher
+				System.out.println(rs.getString(4));// price
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("SQL에 예외 발생");
+
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstm != null) {
+					pstm.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+				throw new RuntimeException(e2.getMessage());
+			}
+		}
+
+	}
+
+}
