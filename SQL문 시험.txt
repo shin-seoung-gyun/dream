@@ -1,0 +1,35 @@
+create table student(
+stu_no char(9),
+stu_name varchar2(12),
+stu_dept VARCHAR2(20),
+stu_grade NUMBER(1),
+stu_class CHAR(1),
+stu_gender char(1),
+stu_height NUMBER(5,2),
+stu_weight number(5,2),
+CONSTRAINT p_stu_no primary key(stu_no));
+
+insert into student values(20153075,'옥한빛','기계',1,'C','M',177,80);
+insert into student values(20153088,'이태연','기계',1,'C','F',162,50);
+insert into student values(20153033,'이태연','기계',2,'B','M',175,66);
+insert into student values(20143054,'유가인','기계',2,'C','F',154,47);
+insert into student values(20152088,'조민우','전기전자',1,'C','M',188,90);
+insert into student values(20142021,'심수정','전기전자',1,'A','F',168,45);
+insert into student values(20132003,'박희철','전기전자',3,'B','M',NULL,63);
+insert into student values(20151062,'김인중','컴퓨터정보',1,'B','M',166,67);
+insert into student values(20141007,'진현무','컴퓨터정보',2,'A','M',174,64);
+insert into student values(20131001,'김종헌','컴퓨터정보',3,'C','M',NULL,72);
+insert into student values(20131025,'옥성우','컴퓨터정보',3,'A','F',172,63);
+
+--1.컴퓨터 정보 학과의 김씨 성을 가진 학생들의 학생이름 학년을 출력하시오
+SELECT stu_name,stu_grade from student where stu_name like '김%'and stu_dept = '컴퓨터정보';
+--2.기계와 전기전자과 학생들의 학생수를 구하시오.
+select count(*) from student where stu_dept = '전기전자' or stu_dept='기계';
+--3.학생들의 키와, 몸무게의 평균값을 학년별로 구하시오.
+select stu_grade,round(avg(stu_height),2),round(avg(stu_weight),2) from student GROUP by stu_grade ORDER BY stu_grade DESC;
+--4.신장이 전체 학생들의 평균 신장보다 큰 학생을 검색하시오.
+select stu_name from student where stu_height > (select avg(stu_height) from student);
+--5.몸무게가 평균 이상의 몸무게인 학생 모두 몸무게의 값을 5빼시오.
+update student set stu_weight = stu_weight-5 where stu_weight > (select avg(stu_weight) from student);
+--학생 키의 값이 null인 학생들을 삭제하시오.
+DELETE FROM student where stu_height is null;
