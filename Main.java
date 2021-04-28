@@ -1,233 +1,208 @@
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		OutLine ot = new OutLine();
 		Scanner in = new Scanner(System.in);
-		DBAccess da = new DBAccess();// 클래스 임포트
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		DBAccess da = new DBAccess();
+		RMForProject rm = new RMForProject();
 		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
 		while (true) {
+			ot.menu();
+			System.out.print("메뉴를 입력하세요.>");
+			String userStr = in.nextLine();
 
-			ScreenOut.menu();
-			switch (in.nextLine()) {
-			case "1":// 지출
-			{
-				ScreenOut.outItem();
-				String item = in.nextLine();
-				ScreenOut.outMoney();
-				String money = in.nextLine();
-				ScreenOut.checkMent(item, money, "지출");
-				String check = in.nextLine();
-				if (check.equals("1")) {
-					ScreenOut.yesMent();
-					String strDate = format.format(date).toString();
-					da.insertRow(item, "-" + money,strDate);// INSERT DATA 함수 필요 지출탭이라 -추가
+			// 주소록보기
+			if (userStr.equals("1")) {
+				ot.menu2();
+				System.out.print("메뉴를 입력하세요.>");
+				String userStr2 = in.nextLine();
+
+				if (userStr2.equals("1")) {
+					System.out.println("\t전체 주소록을 불러옵니다.");
+					da.allAddress();// 모든 주소록 불러오는 함수
+				} else if (userStr2.equals("2")) {
+					System.out.println("\t이름으로 검색을 시작합니다.");
+					// 이름으로 검색하는 함수
+					System.out.print("이름을 입력해 주세요.>");
+					String name = in.nextLine();
+					da.findNameAddress(name);
+				} else if (userStr2.equals("3")) {
+					System.out.println("\t소속으로 검색을 시작합니다.");
+					// 소속으로 검색하는 함수
+					System.out.print("소속을 입력해 주세요.>");
+					String Affiliation = in.nextLine();
+					da.findAffiliationAddress(Affiliation);
 				} else {
-					ScreenOut.noMent();
-				}
-				System.out.println("Enter");
-				in.nextLine();
-				break;
-			}
-			case "2":// 수입
-			{
-				ScreenOut.inItem();
-				String item = in.nextLine();
-				ScreenOut.inMoney();
-				String money = in.nextLine();
-				ScreenOut.checkMent(item, money, "수입");
-				String check = in.nextLine();
-				if (check.equals("1")) {
-					ScreenOut.yesMent();
-					String strDate = format.format(date).toString();
-					da.insertRow(item, money,strDate);// INSERT DATA 함수 필요//abs?
-				} else {
-					ScreenOut.noMent();
-				}
-				System.out.println("Enter");
-				in.nextLine();
-				break;
-
-			}
-			case "3":// 잔액
-			{
-				int sumMoney = da.getMoneyBalance();// 잔액 결과값 가져오는 함수 필요
-				System.out.println("\t현재남은 금액은 " + sumMoney + "원 입니다.");
-				System.out.println("Enter");
-				in.nextLine();
-				break;
-			}
-
-			case "4":// 전체조회
-			{
-				System.out.println("\t전체 목록을 조회합니다.");
-				System.out.println("Enter");
-				in.nextLine();
-				System.out.println("\t지출(수입)내역\t금액\t\t날짜.");
-				System.out.println("\t************************************");
-				var listItem = da.selectAllItem();// 전체 조회 값 가져오는 함수 필요
-				for (var item : listItem) {// for문 활용 내용 표시
-					System.out.print("\t" + item.item);
-					if (item.item.length() < 7) {
-						System.out.print("\t");
-					}
-
-					System.out.print("\t" + item.money);
-					if (item.money.length() < 10) {
-						System.out.print("\t");
-					}
-
-					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-					System.out.print("\t" + format1.format(item.date1) + "\n");// 수정중 데이트타입으로 형변환 필요
-
-				}
-				break;
-			}
-
-			case "5":// 마지막 입력 취소
-			{
-				System.out.println("\t마지막 입력을 취소합니다.");
-				System.out.println("Enter");
-				in.nextLine();
-				da.lastOrderCancle();
-				break;
-			}
-			case "6":// 지출액 1~3위 조회
-			{
-				System.out.println("\t지출액 1~3위를 조회합니다.");
-				System.out.println("Enter");
-				in.nextLine();
-
-				System.out.println("\t지출내역\t\t금액.");
-				System.out.println("\t************************************");
-
-				var rankItem = da.outPocket();// 전체 조회 값 가져오는 함수 필요
-				for (var item1 : rankItem) {// for문 활용 내용 표시
-					System.out.print("\t" + item1.item);
-					if (item1.item.length() < 7) {
-						System.out.print("\t");
-					}
-					System.out.print("\t" + item1.money + "\n");
-
+					System.out.println("\t잘못입력하셨습니다. 처음으로 돌아갑니다.");
+					continue;
 				}
 
-			}
-			case "7": {
-				System.out.println("\t기간별 수입합계, 지출합계를 조회합니다.");
-				ScreenOut.startDay();
-				String start = in.nextLine();
-				ScreenOut.endDay();
-				String end = in.nextLine();
-				System.out.println("Enter");
-				in.nextLine();
-				
-				ScreenOut.checkDayMent(start, end, "기간");
-				String check = in.nextLine();
-				if (check.equals("1")) {
-					ScreenOut.yesMent();
-					System.out.println("\t총수입내역\t\t총지출내역.");
-					System.out.println("\t************************************");
+			} else if (userStr.equals("2")) {// 메일보내기
+				ot.menu3();
+				System.out.print("메뉴를 입력하세요.>");
+				String userStr2 = in.nextLine();
 
-					var listDaily = da.dailyInOut(start, end);
-					for (var item2 : listDaily) {// for문 활용 내용 표시
-						System.out.print("\t" + item2.item);//총수입
-						if (item2.item.length() < 7) {
-							System.out.print("\t");
-						}
-						System.out.print("\t\t" + item2.money + "\n");//총지출
+				// 한명에게 메일 전송
+				if (userStr2.equals("1")) {
+					System.out.println("\t한명에게 메일을 보냅니다.");
+					// 한명에게 메일 보낼 처리
+					SMForProject sp = new SMForProject();
+					System.out.print("받는 분의 메일 주소를 입력하세요.>");
+					String reID = in.nextLine();
+					// 해당 아이디가 주소록에 있으면 본문에 기본형식 출력
+					System.out.print("제목>");
+					String title = in.nextLine();
+					System.out.print("본문>");
+					String mainText = in.nextLine();
+					// 아이디에 따라서 정보를 찾는 함수 필요.
+					boolean sameAddress = da.isTure(reID);
+					if (sameAddress == false) {
+						sp.sendMail1(reID, title, mainText);
+					} else {
+						sp.sendMail1(reID, title, da.baseText(mainText, reID));
 					}
+					da.sendMail(reID, title, mainText, format.format(date));
 					
-				} else {
-					ScreenOut.noMent();
-				}
-				System.out.println("Enter");
-				in.nextLine();
-				break;
-			}
-			
-			case "8": {
-				System.out.println("\t기간별 수입평균, 지출평균를 조회합니다.");
-				ScreenOut.startDay();
-				String start = in.nextLine();
-				ScreenOut.endDay();
-				String end = in.nextLine();
-				System.out.println("Enter");
-				in.nextLine();
-				
-				ScreenOut.checkDayMent(start, end, "기간");
-				String check = in.nextLine();
-				if (check.equals("1")) {
-					ScreenOut.yesMent();
-					System.out.println("\t수입평균내역\t\t지출평균내역.");
-					System.out.println("\t************************************");
+					// 여러명에게 메일보낼 처리
+				} else if (userStr2.equals("2")) {
+					System.out.println("\t여러사람에게 메일을 보냅니다.");
+					ot.menu4();
+					System.out.print("메뉴를 입력하세요.>");
+					String userStr3 = in.nextLine();
 
-					var listDailyAvg = da.dailyInOutAvg(start, end);
-					for (var item2 : listDailyAvg) {// for문 활용 내용 표시
-						System.out.print("\t" + item2.item);//총수입
-						if (item2.item.length() < 7) {
-							System.out.print("\t");
+					if (userStr3.equals("1")) {// 주소록 전체 보내기
+						System.out.println("전체 메일 발송합니다.");
+						
+						SMForProject sp = new SMForProject();
+						System.out.print("제목>");
+						String title = in.nextLine();
+						System.out.print("본문>");
+						String mainText = in.nextLine();
+						// 전체 주소록의 email을 List로 불러오는 함수
+						List<String> toList = da.allAddAry();
+						// 위의 함수에서 받아온 메일 주소로 뿌리는 함수
+						sp.sendAllMail(toList, title, mainText);
+						for(int i = 0; i <toList.size();i++) {
+							da.sendMail(toList.get(i), title, mainText, format.format(date));
 						}
-						System.out.print("\t\t" + item2.money + "\n");//총지출
-					}
-					
-				} else {
-					ScreenOut.noMent();
-				}
-				System.out.println("Enter");
-				in.nextLine();
-				break;
-			}
-			
-			case "9": {
-				System.out.println("\t일별 수입, 지출를 조회합니다.");
-				ScreenOut.startDay();
-				String start = in.nextLine();
-				ScreenOut.endDay();
-				String end = in.nextLine();
-				System.out.println("Enter");
-				in.nextLine();
-				
-				ScreenOut.checkDayMent(start, end, "기간");
-				String check = in.nextLine();
-				if (check.equals("1")) {
-					ScreenOut.yesMent();
-					System.out.println("\t수입,지출내역\t\t일자.");
-					System.out.println("\t************************************");
 
-					var dailyListMoney = da.dailyInOutMoney(start, end);
-					for (var item2 : dailyListMoney) {// for문 활용 내용 표시
-						System.out.print("\t" + item2.item);//수입 지출
-						if (item2.item.length() < 10) {
-							System.out.print("\t");
+					} else if (userStr3.equals("2")) {// 소속 전체보내기
+						System.out.println("소속 그룹발송합니다.");
+						
+						System.out.print("받으시는 분의 소속을 입력하세요.>");
+						String reAffiliation = in.nextLine();
+						SMForProject sp = new SMForProject();
+						System.out.print("제목>");
+						String title = in.nextLine();
+						System.out.print("본문>");
+						String mainText = in.nextLine();
+						List<String> emailList = da.findAffAdd(reAffiliation);//소속으로 이메일리스트를 받아오는 함수
+						for (int i = 0; i < emailList.size(); i++) {
+							sp.sendMail1(emailList.get(i), title, da.baseText(mainText, emailList.get(i)));
+							da.sendMail(emailList.get(i), title, mainText, format.format(date));
 						}
-						SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-						System.out.print("\t\t" + format1.format(item2.date1) + "\n");//일자
+
+					} else if (userStr3.equals("3")) {// 소속 및 부서 입력후 모두 보내기
+						System.out.println("소속및 부서 그룹발송합니다.");
+						System.out.print("받으시는 분의 소속을 입력하세요.>");
+						String reAffiliation = in.nextLine();
+						System.out.print("받으시는 분의 부서를 입력하세요.>");
+						String divisions = in.nextLine();
+						SMForProject sp = new SMForProject();
+						System.out.print("제목>");
+						String title = in.nextLine();
+						System.out.print("본문>");
+						String mainText = in.nextLine();
+						List<String> emailList = da.findAffDivAdd(reAffiliation, divisions);//소속및 부서로 이메일리스트를 받아오는 함수
+						for (int i = 0; i < emailList.size(); i++) {
+							sp.sendMail1(emailList.get(i), title, da.baseText(mainText, emailList.get(i)));
+							da.sendMail(emailList.get(i), title, mainText, format.format(date));
+						}
+					} else {
+						System.out.println("\t잘못입력하셨습니다. 처음으로 돌아갑니다.");
+						continue;
 					}
-					
+
 				} else {
-					ScreenOut.noMent();
+					System.out.println("\t잘못입력하셨습니다. 처음으로 돌아갑니다.");
+					continue;
 				}
-				System.out.println("Enter");
+			//받은 메일 확인하기
+			} else if (userStr.equals("3")) {
+				ot.menu5();
+				System.out.print("메뉴를 입력하세요.>");
+				String userStr2 = in.nextLine();
+				if (userStr2.equals("1")){//전체 메일 확인
+					System.out.println("전체 메일 상위 10개를 출력합니다");
+					try {
+						rm.reciveAllMail();
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+				} else if (userStr2.equals("2")) {//읽지 않은 메일 확인
+					System.out.println("읽지않은 받은 메일 상위 10개를 출력합니다");
+					try {
+						rm.reciveMail();
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+				}
+			//보낸 메일 확인하기	
+			} else if (userStr.equals("4")) {	
+				System.out.println("보낸 메일을 출력합니다.");
+				da.findSendMail();
+				
+			} else if (userStr.equals("5")) {	//주소록 추가
+				System.out.println("주소록을 추가합니다.");
+				System.out.print("이름을 입력하세요>");
+				String name = in.nextLine();
+				System.out.print("소속을 입력하세요>");
+				String affiliation = in.nextLine();
+				System.out.print("부서를 입력하세요>");
+				String divisions = in.nextLine();
+				System.out.print("직급을 입력하세요>");
+				String position = in.nextLine();
+				System.out.print("연락처를 입력하세요>");
+				String phone = in.nextLine();
+				System.out.print("이메일주소를 입력하세요>");
+				String eMail = in.nextLine();
+				da.insertAB(name, divisions, position, phone, eMail, affiliation);
+				
+			} else if (userStr.equals("6")) {	// 주소록 수정 (no와 수정할 칼럼명 하나를 입력받고 수정할 내용 입력받은 후 수정)	
+				System.out.println("주소록을 수정합니다.");
+				System.out.println("주소록의 번호를 입력하세요>");
+				int no = in.nextInt();
 				in.nextLine();
+				System.out.println("수정할 칼럼을 입력하세요. ex)이름,소속,직급,부서,연락처,이메일주소>");
+				String column = in.nextLine();
+				System.out.println("수정할 내용을 입력하세요>");
+				String text = in.nextLine();
+				da.setColumn(no, column, text);
+				
+			} else if (userStr.equals("7")) {	// 주소록 삭제 (no 입력받고 해당 no 행 삭제)	
+				System.out.println("주소록을 삭제합니다.");
+				System.out.println("주소록의 번호를 입력하세요>");
+				int no = in.nextInt();
+				in.nextLine();
+				da.deleteDate(no);
+				
+			} else if (userStr.equals("0")) {//종료
+				System.out.println("\t프로그램을 종료합니다.");
 				break;
 			}
 
-			case "0":// 종료
-			{
-				System.out.println("종료되었습니다.");
-				return;
-			}
-			default:
-				System.out.println("잘못입력하셨습니다. 다시 입력하세요");
-				break;
-
-			}
 		}
+
 	}
 
 }
