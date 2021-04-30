@@ -44,3 +44,16 @@ a.append(10)
 a.sort()
 print(b)
 
+
+# color = ['orange','red','blue','green','red','red','red','red']
+# for i in range(0,len(color)) :
+#     if color[i] =='red':
+#         i += -1
+#         color.remove('red')
+
+# color
+
+
+
+
+

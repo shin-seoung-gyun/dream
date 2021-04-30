@@ -82,14 +82,74 @@
 
 
 
+#반지름을입력받고 원의 넓이를 출력하는 함수 r*r*3.14
+def circleArea (r):
+    return r*r*3.14
+
+R = int(input("반지름을 입력하세요."))
+
+result = circleArea(R)
+print(result)
+
+#반지름과 높이를 입력받고 실린더의 부피를 출력하는 함수 r*r*3.14*h
+def cilinder(r,h):
+    return circleArea(r)*h
 
 
+R = int(input("반지름을 입력하세요."))
+height = int(input("높이를 입력하세요."))
+
+result = cilinder(R,height)
+print(result)
+#list를 입력받고 리스트의 모든 요소의 합을 출력하는 함수
+def sumList(ulist):
+    result = 0
+    for i in ulist:
+        result += i
+    return result
+
+userList = [31,2,5,4,6]
+
+result = sumList(userList)
+print(result)
+
+#list변수를 입력받고 리스트의 모든 요소의 평균값을 출력하는 함수
+def avgList(ulist):
+    result = 0
+    for i in ulist:
+        result += i
+    return result/len(ulist)
+
+userList = [31,2,5,4,6]
+result = avgList(userList)
+print(result)
+
+#list변수를 입력받고 리스트의 모든 요소의 표준편차값을 출력하는 함수
+
+def stdAvgList(ulist):
+    avg = avgList(ulist)
+    stdAvg[]
+    for i in ulist:
+        stdAvg.append((i-avg)**2)
+    return avgList(stdAvg)**(0.5)
+
+userList = [31,2,5,4,6]
+result = stdAvgList(userList)
+print(result)
 
 
+def getTotalResis(numList, serial=True) :
+    if serial :
+        return sum(numList)
+    else :
+        total = 0
+        for i in numList :
+            total += 1/i
+        return 1/total
 
-
-
-
+getTotalResis([1,2,3,4])
+getTotalResis([1,2,3,4],True)
+getTotalResis([1,2,3,4],False)
 
 
 

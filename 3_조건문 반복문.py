@@ -160,10 +160,25 @@ a,b,c,d,e = student_score
 student_average = [a/3,b/3,c/3,d/3,e/3]
 print(student_average)
 
+#2,5,7
 
+for i in range(1,51):
+    j = str(i)
+    for k in j:
+        if(k=='2' or k=='5' or k=='7'):
+            print("짝",end="")
+        else :
+            print(k,end="")
+    if(i!=50):
+        print(",",end="")
+        
+     
 
+color = ['orange','red','blue','green','red','red','red','red']
 
-
+while 'red' in color :
+    color.remove('red')
+color
 
 
 
