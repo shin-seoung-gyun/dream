@@ -4,13 +4,13 @@ import json
 
 
 class WebUtil :
-    def getRequestUrl(url):
+    def getRequestUrl(url, decoding='utf-8'):
         req = urllib.request.Request(url)
         try :
             reponse = urllib.request.urlopen(url)
             if reponse.getcode()==200: #정상응답(http 프로토콜 기준에 나오는 응답)
                 print(f"[{datetime.datetime.now()}] Url Request Success")
-                return reponse.read().decode('utf-8')
+                return reponse.read().decode(decoding)
         except Exception as e :
             print(e)
             print(f"[{datetime.datetime.now()}] Error for Url")
