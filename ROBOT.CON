@@ -2,7 +2,7 @@
 'Header=CON:TE=047v07.54
 
 #001 Condition set
-	-Playback mode=1<1Step,1Cycle,Continuous>
+	-Playback mode=reData<1Step,1Cycle,Continuous>
 	-Step go/back max speed=200
 	-Step go/back function execute=1<Off,On,I On>
 	-Playback speed rate=100
@@ -12,7 +12,7 @@
 	-Step go/back path-recovery=2<Confirm,Disable,Enable>
 	-Function re-execution while step trace=1<Disable,Enable>
 
-#002 Application condition set
+002 Application condition set
 	-Search reference point record=0<Off,On>
 	-Search range=0.0
 	-DO clear=1<Disable,Enable>
