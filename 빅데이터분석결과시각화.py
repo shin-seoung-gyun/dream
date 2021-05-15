@@ -27,39 +27,39 @@ def getPosFromAddress(addr) :
     return retJson
 
 
-# lottos = pd.read_csv("./지리정보시각화/lotto.csv")
-# lottos['위도'] = 0
-# lottos['경도'] = 0
-# print(lottos.head())
+lottos = pd.read_csv("./지리정보시각화/lotto.csv")
+lottos['위도'] = 0
+lottos['경도'] = 0
+print(lottos.head())
 
-# for i,store in lottos.iterrows() :
-#     try :
-#         retJson = getPosFromAddress(store['address'])
-#         xPos = retJson['response']['result']['point']['x']
-#         yPos = retJson['response']['result']['point']['y']
-#         print(xPos, yPos)
-#         lottos.loc[i, '위도'] = yPos
-#         lottos.loc[i, '경도'] = xPos
-#         if i > 100:
-#             break
-#     except :
-#         continue
+for i,store in lottos.iterrows() :
+    try :
+        retJson = getPosFromAddress(store['address'])
+        xPos = retJson['response']['result']['point']['x']
+        yPos = retJson['response']['result']['point']['y']
+        print(xPos, yPos)
+        lottos.loc[i, '위도'] = yPos
+        lottos.loc[i, '경도'] = xPos
+        if i > 100:
+            break
+    except :
+        continue
 
-# lottos.to_csv("./지리정보시각화/lotto위도경도.csv",\
-#      encoding='utf-8', mode='w')
+lottos.to_csv("./지리정보시각화/lotto위도경도.csv",\
+     encoding='utf-8', mode='w')
 
-# hollys2 = pd.read_csv("./지리정보시각화/lotto위도경도.csv")
-# m = folium.Map(location=[37.55998,126.97537], zoom_start=15)
+hollys2 = pd.read_csv("./지리정보시각화/lotto위도경도.csv")
+m = folium.Map(location=[37.55998,126.97537], zoom_start=15)
 
-# for i, store in hollys2.iterrows() :
-#     if store['위도'] == 0 :
-#         continue
-#     folium.Marker(
-#         location=[store['위도'], store['경도']],
-#         popup=store['name'],
-#         icon=folium.Icon(color='red', icon='star')
-#     ).add_to(m)
-# m.save("./지리정보시각화/lottos_map.html")
+for i, store in hollys2.iterrows() :
+    if store['위도'] == 0 :
+        continue
+    folium.Marker(
+        location=[store['위도'], store['경도']],
+        popup=store['name'],
+        icon=folium.Icon(color='red', icon='star')
+    ).add_to(m)
+m.save("./지리정보시각화/lottos_map.html")
 
     
 
