@@ -13,6 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/dev/eclipse2/jsp_workspace/mariadb-java-client-2.7.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/Downloads/mariadb-java-client-2.7.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -23,5 +23,13 @@ public class Sv {
 		Dao dao = new Dao();
 		return dao.best();
 	}
-	
+	int analysis() {
+		Dao dao = new Dao();
+		int result =  dao.lastnum();
+		return result;
+	}
+	ArrayList<DtoMemo> searchList(String search,int page){
+		Dao dao = new Dao();
+		return dao.searchList(search, page);
+	}
 }

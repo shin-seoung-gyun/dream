@@ -16,11 +16,8 @@ public class DtoBest {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
 	@Override
 	public String toString() {
 		return "DtoBest [name=" + name + ", count=" + count + "]";
 	}
-	
-	
 }

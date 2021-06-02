@@ -107,5 +107,61 @@ public class Dao implements DaoInter {
 		}
 		return dtobest;
 	}
+	@Override
+	public int lastnum() {
+		int lastresult =0;
+		Connection conn = JdbcUtil.getConn();
+		PreparedStatement pstmt = null;
+		ResultSet result =null;
+		try {
+//			pstmt = conn.prepareStatement("select no from memo_table order by no desc limit 0,1");
+			pstmt = conn.prepareStatement("select max(no)-count(*) from memo_table");
+			result = pstmt.executeQuery();//결과를 가져와서 
+			result.next();//첫번째 행을 가리키고
+			
+			lastresult=result.getInt("max(no)-count(*)");//값 넣는다.
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(result);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
+		}
+		return lastresult;
+	}
+	
+	@Override
+	public ArrayList<DtoMemo> searchList(String search, int page) {//검색기능
+		ArrayList<DtoMemo> list=new ArrayList<DtoMemo>();
+		Connection conn = JdbcUtil.getConn();
+		PreparedStatement pstmt = null;
+		ResultSet result =null;
+		try {
+			pstmt = conn.prepareStatement("select * from memo_table where memo like ? order by no desc limit ?,10");
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, (page-1)*10);
+			result = pstmt.executeQuery();
+			while(result.next()) {
+				DtoMemo dtoMemo = new DtoMemo();//와일문 밖에 만들면 마지막 데이터만 남아서 마지막 데이터만 반복됨.
+				dtoMemo.setNo(result.getInt(1));
+				dtoMemo.setName(result.getString(2));
+				dtoMemo.setMemo(result.getString(3));
+				dtoMemo.setTime(result.getString(4));
+				list.add(dtoMemo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(result);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
+		}
+		
+		return list;
+		
+
+	}
 
 }
