@@ -1,0 +1,6 @@
+회사(Company) ER 다이어그램 및 관계형 스키마 모델링
+▶ 요구사항
+● 회사는 여러 부서(DEPARTMENT)들로 구성. 각 부서는 부서명(name), 번호(number), 부서장을 가진다. 부서장의 부임 날짜(start date)도 유지한다. 
+● 한 부서는 여러 개의 프로젝트(PROJECT)들을 관리한다. 각 프로젝트는 이름(name)과 번호(number)를 가지며 한 곳(location)에 위치한다.
+● 각 사원(EMPLOYEE)의 주민등록번호(social security number), 주소(address), 월급(salary), 성별(sex), 생년월일(birthdate)을 저장한다. 각 사원은 한 부서에서 근무하며(works for) 여러 프로젝트에 관여한다(work on). 각 사원이 각 프로젝트를 위해 주당 근무 시간을 저장한다. 또한, 각 직원의 직속 상사(direct supervisor)도 유지한다.
+● 각 사원은 여러 명의 부양가족(DEPENDENT)들을 가진다. 각 부양가족에 대해 이름(name), 성별(sex), 생년월일(birthdate), 직원과의 관계(relationship)를 저장한다.
