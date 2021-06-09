@@ -1,0 +1,17 @@
+운행정보 실시간 로그 생성
+java -cp bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.DriverLogMain 20160101 10
+
+차량상태 정보
+java -cp bigdata.smartcar.loggen-1.0.jar com.wikibook.bigdata.smartcar.loggen.CarLogMain 20210609  3
+
+
+
+//카프카 토픽(SmartCar-Topic)만들기
+kafka-topics --create --zookeeper server02.hadoop.com:2181 --replication-factor 1 --partitions 1 --topic 
+
+//producer 콘솔을 이용해서 카프카의 Broker의 SmartCar-Topic에 접속
+kafka-console-producer -broker-list server02.hadoop.com:9092 -topic SmartCar-Topic
+
+//consumer 콘솔을 이용해서 SmartCar-Topic에서 내용 가져오기
+kafka-console-consumer -bootstrap-server server02.hadoop.com:9092 --topic SmartCar-Topic --partition 0 -from-beginning
+
