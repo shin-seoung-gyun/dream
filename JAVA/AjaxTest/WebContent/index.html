@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Ajax 테스트입니다</h2>
+	현재 서버의 초는
+	<span></span> 입니다.
+	<button>갱신</button>
+	<script src="//code.jquery.com/jquery.min.js"></script>
+	<script>
+		//$("span").text("55");
+		$("button").click(function() {
+			$.ajax({
+				url : "GetServer",
+				type : "get",
+				cache : "false",
+				success : function(data) {
+					$("span").text(data);
+				}
+			})
+		})
+	</script>
+
+
+</body>
+</html>

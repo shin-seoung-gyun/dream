@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		var intAry = new Array();
+		var dup = 0;//0은 중복없음 1은 중복있음
+		for (var i = 1; i < 100; i++) {
+			intAry[0]=Math.floor(Math.random() * 100 + 1);
+			do {
+				dup=0;
+				var num = Math.floor(Math.random() * 100 + 1);
+				for (var j = 0; j < i; j++) {
+					if (intAry[j] == num) {
+						dup = 1;
+						break;
+					}
+					intAry[i]=num;
+				}
+			}while (dup == 1);
+			document.write(intAry[i]+"<br>");
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>1부터 5까지 무작위 숫자를 생성해 줄게요.(중복없이)</h3>
+<form action="..." method="post">
+<input type="button" onclick="rand();" value="만들어"><br>
+<input id="a" type="text">
+<input id="b" type="text">
+<input id="c" type="text">
+</form>
+<!-- console.log(); 유용한 매서드 -->
+<script>
+function rand(){
+	while(true){
+	var rand1 = Math.floor(Math.random()*5+1);
+	var rand2 = Math.floor(Math.random()*5+1);
+	var rand3 = Math.floor(Math.random()*5+1);
+	if(rand1==rand2){
+		continue;
+	}else if(rand1==rand3){
+		continue;
+	}else if(rand2==rand3){
+		continue;
+	}
+	
+	
+	
+	document.getElementById("a").value = rand1;
+	document.getElementById("b").value = rand2;
+	document.getElementById("c").value = rand3;
+	break;
+	}
+}
+</script>
+</body>
+</html>

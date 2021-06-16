@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Calculator</title>
+    <script>
+        function calc() {
+
+            var x = document.getElementById("x").value;
+
+            var y = document.getElementById("y").value;
+            
+            var z = document.getElementById("z").value;
+            var sum;
+
+            sum = parseInt(x) + parseInt(y)+ parseInt(z);
+            document.getElementById("sum").value = sum;
+        }
+        function calc2() {
+
+            var x = document.getElementById("x").value;
+
+            var y = document.getElementById("y").value;
+            
+            var z = document.getElementById("z").value;
+            var sum;
+
+            minus = parseInt(x) - parseInt(y)- parseInt(z);
+            document.getElementById("sum").value = minus;
+        }
+    </script>
+
+</head>
+
+<body>
+    <h3>덧셈 계산기</h3>
+    <form name="myform" action="..." method="POST">
+        첫번째 정수:        
+        <input id="x" /><br />
+        두번째 정수:        
+        <input id="y" /><br />
+	세번째 정수:        
+        <input id="z" /><br />
+        결과값:         
+        <input id="sum" />
+        <br />
+		<input type="button" value="더하기" onclick="calc();" />
+		<input type="button" value="빼기" onclick="calc2();" /><br />
+        
+    </form>
+
+</body>
+</html>

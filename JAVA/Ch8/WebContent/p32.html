@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+function guess() {
+	var x = parseInt(document.getElementById("a").value);
+	var y = parseInt(document.getElementById("b").value);
+	
+	if(x>y){
+		alert(x);
+	}else if(x<y){
+		alert(y);
+	}else{
+		alert("두 수가 같다");
+	}
+}
+</script>
+
+<form action="..." method="post">
+<input type="text" id="a"><br>
+<input type="text" id="b"><br>
+<input type="button" value="확인" onclick="guess();">
+
+</form>
+
+</body>
+</html>
