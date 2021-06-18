@@ -92,9 +92,9 @@ bream_smelt_indexes
 X_train_bs = X_train_scaled[bream_smelt_indexes]
 Y_train_bs = Y_train[bream_smelt_indexes]
 
-#numpy 마스크 인덱싱
-char_arr = np.array(['a','b','c','d','e'])
-char_arr[[True,False,False,False,False]]
+# #numpy 마스크 인덱싱
+# char_arr = np.array(['a','b','c','d','e'])
+# char_arr[[True,False,False,False,False]]
 
 from sklearn.linear_model import LogisticRegression
 lr = LogisticRegression()
