@@ -14,7 +14,7 @@ public class DAOBase implements DAO {
 		try {
 			Class.forName(jdbc_driver);
 			Connection conn = DriverManager.getConnection(db_url, "hrd", "hrdkorea");
-			System.out.println("종료");
+			System.out.println("정상연결");
 			return conn;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -25,7 +25,7 @@ public class DAOBase implements DAO {
 	public void closeDBResources(ResultSet rs, Statement stmt, Connection conn) {
 		if (rs != null) {
 			try {
-				System.out.println("rs 종료");
+				System.out.println("rs 정상종료");
 				rs.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -33,7 +33,7 @@ public class DAOBase implements DAO {
 		}
 		if (stmt != null) {
 			try {
-				System.out.println("stmt 종료");
+				System.out.println("stmt 정상종료");
 				stmt.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -41,7 +41,7 @@ public class DAOBase implements DAO {
 		}
 		if (conn != null) {
 			try {
-				System.out.println("conn 종료");
+				System.out.println("conn 정상종료");
 				conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();

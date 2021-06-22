@@ -3,8 +3,10 @@ package test;
 import java.util.List;
 
 import model.FirstMakeVO;
+import model.GroupJnumVO;
 import model.ProductDAOImpl;
 import model.ProductVO;
+import model.ProfitRankVo;
 
 public class ProductDAOimpltest {
 
@@ -12,7 +14,7 @@ public class ProductDAOimpltest {
 		// TODO Auto-generated method stub
 		ProductVO vo = new ProductVO();
 		
-		vo.setCode("A03");
+		vo.setCode("A01");
 //		vo.setPnum(100);
 //		vo.setCost(200);
 //		vo.setGcode("A");
@@ -31,8 +33,21 @@ public class ProductDAOimpltest {
 //			System.out.println(fvo.getPname());
 //			System.out.println(fvo.getJnum());
 //		}
+//		List<ProfitRankVo> list = pdao.readProfitRankList();
+//		for(ProfitRankVo pfr:list) {
+//			System.out.println(pfr.getPname());
+//			System.out.println(pfr.getProfit());
+//		}
 		
-		System.out.println(pdao.readOne(vo));
+//		List<GroupJnumVO> list = pdao.readGroupJnumList();
+//		for(GroupJnumVO gvo:list) {
+//			System.out.println(gvo.getGcode());
+//			System.out.println(gvo.getJnum());
+//		}
+		
+		System.out.println(pdao.delete(vo));
+		
+//		System.out.println();
 		
 	}
 

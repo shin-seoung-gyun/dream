@@ -17,4 +17,6 @@ public interface ProductDAO {
 	public int update(ProductVO vo);
 	//항목삭제
 	public int delete(ProductVO vo);
+	
+	
 }
