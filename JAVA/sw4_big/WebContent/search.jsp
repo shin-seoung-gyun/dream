@@ -15,7 +15,7 @@
 		<legend>생산관리 조회 수정 화면</legend>
 		<c:if test="${flist == null}">
 			<form action="find.do" method="get">
-				제품코드1<input type="text" name="code"><br> 
+				제품코드<input type="text" name="code"><br> 
 				제품명<input	type="text" name="pname"><br> 
 				제품원가<input type="text" name="cost"><br> 
 				재고수량<input type="text" name="jnum"><br>
@@ -26,6 +26,12 @@
 						<option value="${temp.getGcode()}">${temp.getGname()}</option>
 					</c:forEach>
 				</select>
+				<br>
+		<input type="submit" value="조회">
+		<input type="button" value="수정" onclick="alert('조회한후 수정해주세요')">
+		<input type="button" value="삭제" onclick="alert('조회한후 삭제해주세요')"> 
+		<input type="button" value="메인화면" onclick="location.href='main.do'">
+		</form>
 		</c:if>
 		<c:if test="${flist != null}">
 			<form action="find.do" method="get">
@@ -44,14 +50,15 @@
 						value="${temp.getGcode()}">${temp.getGname()}</option>
 					</c:forEach>
 				</select>
-		</c:if>
+		
 
-
+<br>
 		<input type="submit" value="조회">
 		<input type="submit" value="수정" formaction="update.do">
 		<input type="submit" value="삭제" formaction="delete.do"> 
 		<input type="button" value="메인화면" onclick="location.href='main.do'">
 		</form>
+		</c:if>
 	</fieldset>
 </body>
 </html>
