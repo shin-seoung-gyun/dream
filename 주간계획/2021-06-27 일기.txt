@@ -1,0 +1,3 @@
+healthdiary 입력창에 select 로 운동 종류 삽입
+mariadb 에도 운동관련 테이블 추가 설계
+상체- 운동명 - 횟수 - 세트
