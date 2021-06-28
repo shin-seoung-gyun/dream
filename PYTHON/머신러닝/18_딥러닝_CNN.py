@@ -28,11 +28,11 @@ X_train.shape
 
 #3)CNN 모델 생성
 model = keras.Sequential()
-model.add(keras.layers.Conv2D(32,kernel_size=3,activation='relu', padding='same',
+model.add(keras.layers.Conv2D(32,kernel_size=3,activation='relu', padding='same',#32=필터개수
     input_shape=X_train.shape[1:]))
 X_train.shape[1:]#(28, 28, 1)
 
-model.add(keras.layers.MaxPooling2D(2))
+model.add(keras.layers.MaxPooling2D(2))#풀링크기
 #특성맵의 크기 (14*14)*32
 
 model.add(keras.layers.Conv2D(64,kernel_size=3,activation='relu', padding='same'))
@@ -98,66 +98,4 @@ plt.xticks(range(1,11))
 plt.xlabel('class')
 plt.ylabel('prod')
 plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
