@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+import json
 #1.데이터 불러오기
 data = pd.read_csv('./data/운동방법 ver2.1.csv')
 data.head()
@@ -61,6 +62,18 @@ def get_recommendation(운동명, cosMatix=cos_matrix):
     #유사한 운동명 리턴
     return data['운동명'].iloc[exercise_index]
 get_recommendation('푸쉬업')
+
+namelist = {}
+for name in get_recommendation('푸쉬업'):
+    addname = {"name":name}
+    namelist['name']=addname
+print(namelist)
+
+
+print(json.dumps(namelist,ensure_ascii=False))
+
+
+
 get_recommendation('풀오버')
 
 data['개요_join'].loc[titleIndex['풀오버']]
