@@ -1,11 +1,12 @@
  
 #라우팅
+from flask.sessions import NullSession
 from 운동추천 import get_recommendation
-from flask import Flask
+from flask import Flask, redirect
 import json
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-
+import requests
 
 app = Flask (__name__)
 
@@ -86,6 +87,8 @@ def hello_user2(exName):
         namelist.append(addname)
     print(namelist)
     print(json.dumps(namelist,ensure_ascii=False))
+    param = json.dumps(namelist,ensure_ascii=False)
+    # resp = requests.post(url="http://localhost:8081/HealthDiary/exercise", params=param)
     return json.dumps(namelist,ensure_ascii=False)
 
 
