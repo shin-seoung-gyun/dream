@@ -1,0 +1,17 @@
+
+교재 p237 휴설치를 위한 python2.7
+centos 6 지원이 종료
+echo "http://vault.centos.org/6.10/os/x86_64/" > /var/cache/yum/x86_64/6/base/mirrorlist.txt
+echo "http://vault.centos.org/6.10/extras/x86_64/" > /var/cache/yum/x86_64/6/extras/mirrorlist.txt
+echo "http://vault.centos.org/6.10/updates/x86_64/" > /var/cache/yum/x86_64/6/updates/mirrorlist.txt
+
+entos-sclo-rh 에러 메시지가 나오면
+echo "http://vault.centos.org/6.10/sclo/x86_64/rh" > /var/cache/yum/x86_64/6/centos-sclo-rh/mirrorlist.txt
+
+centos-sclo-sclo 에러 메시지가 나오며
+echo "http://vault.centos.org/6.10/sclo/x86_64/sclo" > /var/cache/yum/x86_64/6/centos-sclo-sclo/mirrorlist.txt
+
+python or python-pip 설치시 에러가 발생하면
+$ yum --enablerepo=extras install epel-release
+
+최종순서는 

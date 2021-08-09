@@ -1,0 +1,7 @@
+pmoa.iptime.org:9322
+ssh 9322 -> 내부 22/추가 포트포워딩 포트 9380 -> 내부 8080
+
+접속 예 ssh 접속 pmoa.iptime.org:9322 / 웹서버 설치후 포트를 8080 으로 서비스할 경우
+외부접속 방법은 pmoa.iptime.org:9380
+id : mit09 / pw : tlstmdrbs12!
+마리아db ssh ternaling 사용법 알아보기.
