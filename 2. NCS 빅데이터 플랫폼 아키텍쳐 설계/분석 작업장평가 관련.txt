@@ -1,0 +1,17 @@
+차량번호, 아이템1, 아이템1 추천값 (소수둘째자리에서 반올림), 아이템 2 추천값........
+
+아이템 1 추천값의 내림차순으로 정렬해서 테이블을 생성하시오.
+
+create external table if not exists SmartCar_Status_Info (
+car_number string,
+item1 string,
+item1_recommend string,
+item2 string,
+item2_recommend string,
+item3 string,
+item3_recommend string
+)
+row format delimited
+fields terminated by ','
+stored as textfile
+location '/ pilot-pjt/ mahout/ recommendation/ output/ part-r-00000'
